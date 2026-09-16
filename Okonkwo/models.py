@@ -1,30 +1,225 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 
+import os
+import pymupdf
 
-# PUBLICATION FILE VALIDATION
+from docx import Document
+from pptx import Presentation
+
+
+
+# OLD PUBLICATION VALIDATOR
+
 
 def validate_publication_file(value):
+    """
+    Kept for compatibility with existing Django migrations.
 
-    allowed_extensions = [
-        ".pdf",
-        ".docx",
-    ]
+    Publication files are no longer restricted by this validator.
+    """
+    return
+
+
+
+# BLOG POST FILE VALIDATION
+
+
+def validate_blog_file(value):
+    """
+    Allows:
+
+    - Normal image files
+    - PDF files containing at least one image
+    - DOCX files containing at least one image
+    - PPTX files containing at least one image
+
+    Documents without images are rejected.
+    """
 
     file_name = value.name.lower()
+    extension = os.path.splitext(file_name)[1]
 
-    if not any(
-        file_name.endswith(extension)
-        for extension in allowed_extensions
-    ):
-        raise ValidationError(
-            "Only PDF (.pdf) and Microsoft Word (.docx) files are allowed."
-        )
+    allowed_image_extensions = {
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".gif",
+        ".webp",
+        ".bmp",
+        ".tiff",
+        ".tif",
+    }
+
+    # =====================================================
+    # NORMAL IMAGE
+    # =====================================================
+
+    if extension in allowed_image_extensions:
+        return
+
+    # =====================================================
+    # PDF
+    # =====================================================
+
+    if extension == ".pdf":
+
+        try:
+            value.seek(0)
+
+            pdf_data = value.read()
+
+            value.seek(0)
+
+            document = pymupdf.open(
+                stream=pdf_data,
+                filetype="pdf"
+            )
+
+            contains_image = False
+
+            for page in document:
+
+                images = page.get_images(
+                    full=True
+                )
+
+                if images:
+                    contains_image = True
+                    break
+
+            document.close()
+
+            if not contains_image:
+
+                raise ValidationError(
+                    "This PDF cannot be uploaded because it does "
+                    "not contain an image."
+                )
+
+            return
+
+        except ValidationError:
+            raise
+
+        except Exception:
+
+            raise ValidationError(
+                "The PDF could not be checked. "
+                "Please upload a valid PDF containing an image."
+            )
+
+    # =====================================================
+    # DOCX
+    # =====================================================
+
+    if extension == ".docx":
+
+        try:
+
+            value.seek(0)
+
+            document = Document(
+                value
+            )
+
+            value.seek(0)
+
+            image_count = 0
+
+            for relationship in document.part.rels.values():
+
+                if "image" in relationship.reltype:
+
+                    image_count += 1
+
+            if image_count == 0:
+
+                raise ValidationError(
+                    "This Word document cannot be uploaded because "
+                    "it does not contain an image."
+                )
+
+            return
+
+        except ValidationError:
+            raise
+
+        except Exception:
+
+            raise ValidationError(
+                "The Word document could not be checked. "
+                "Please upload a valid DOCX document containing an image."
+            )
+
+    # =====================================================
+    # PPTX
+    # =====================================================
+
+    if extension == ".pptx":
+
+        try:
+
+            value.seek(0)
+
+            presentation = Presentation(
+                value
+            )
+
+            value.seek(0)
+
+            contains_image = False
+
+            for slide in presentation.slides:
+
+                for shape in slide.shapes:
+
+                    if shape.shape_type == 13:
+
+                        contains_image = True
+
+                        break
+
+                if contains_image:
+                    break
+
+            if not contains_image:
+
+                raise ValidationError(
+                    "This PowerPoint presentation cannot be uploaded "
+                    "because it does not contain an image."
+                )
+
+            return
+
+        except ValidationError:
+            raise
+
+        except Exception:
+
+            raise ValidationError(
+                "The PowerPoint presentation could not be checked. "
+                "Please upload a valid PPTX presentation containing an image."
+            )
+
+    # =====================================================
+    # EVERYTHING ELSE
+    # =====================================================
+
+    raise ValidationError(
+        "Only image files, PDF documents, Word documents, "
+        "and PowerPoint presentations containing images are allowed."
+    )
+
 
 
 # TEAM MEMBERS
 
+
 class TeamMember(models.Model):
+
+    # These are suggested categories.
+    # The admin will allow users to type a different category too.
 
     CATEGORY_CHOICES = [
         ("director", "Director"),
@@ -48,10 +243,13 @@ class TeamMember(models.Model):
         max_length=200
     )
 
+    # NOT a fixed Django choices field.
+    # Users can select a suggested category or type their own.
+
     category = models.CharField(
-        max_length=30,
-        choices=CATEGORY_CHOICES,
-        default="other"
+        max_length=100,
+        default="other",
+        verbose_name="Category"
     )
 
     photo = models.ImageField(
@@ -82,7 +280,9 @@ class TeamMember(models.Model):
         return self.name
 
 
+
 # PUBLICATIONS
+
 
 class Publication(models.Model):
 
@@ -94,8 +294,6 @@ class Publication(models.Model):
         ("working", "Working Paper"),
         ("other", "Other"),
     ]
-
-    # PUBLICATION INFORMATION
 
     title = models.CharField(
         max_length=500
@@ -122,35 +320,23 @@ class Publication(models.Model):
         blank=True
     )
 
-    # PUBLICATION IMAGE
-
     image = models.ImageField(
         upload_to="publications/",
         blank=True,
         null=True
     )
 
-    # FULL TEXT FILE
-    # PDF OR DOCX
-
     pdf_file = models.FileField(
         upload_to="publications/pdfs/",
         blank=True,
         null=True,
-        verbose_name="Full Text File",
-        validators=[
-            validate_publication_file
-        ]
+        verbose_name="Full Text File"
     )
-
-    # DOWNLOAD COUNTER
 
     download_count = models.PositiveIntegerField(
         default=0,
         editable=False
     )
-
-    # PUBLICATION LINKS
 
     journal_url = models.URLField(
         blank=True,
@@ -177,8 +363,6 @@ class Publication(models.Model):
         verbose_name="Publication Link"
     )
 
-    # DISPLAY OPTIONS
-
     featured = models.BooleanField(
         default=False
     )
@@ -199,19 +383,17 @@ class Publication(models.Model):
 
 
 
-
 # UPDATE PROFILE
+
 
 class UpdateProfile(models.Model):
 
     name = models.CharField(
-        max_length=200,
-        blank=False
+        max_length=200
     )
 
     title = models.CharField(
-        max_length=300,
-        blank=False
+        max_length=300
     )
 
     department = models.CharField(
@@ -262,7 +444,9 @@ class UpdateProfile(models.Model):
         return self.name
 
 
+
 # BLOG POSTS
+
 
 class BlogPost(models.Model):
 
@@ -275,31 +459,36 @@ class BlogPost(models.Model):
         max_length=100
     )
 
-    # BLOG POST ABSTRACT
-
     abstract = models.TextField(
-        blank=False,
+        blank=True,
         verbose_name="Abstract"
     )
 
-    # HEADER PICTURE
+    # =====================================================
+    # ONE FILE FIELD
+    #
+    # Allows:
+    # - Images
+    # - PDF containing an image
+    # - DOCX containing an image
+    # - PPTX containing an image
+    # =====================================================
 
-    header_picture = models.ImageField(
+    header_picture = models.FileField(
         upload_to="blog/",
         blank=True,
         null=True,
-        verbose_name="Header Picture"
+        verbose_name="Post File",
+        validators=[
+            validate_blog_file
+        ]
     )
-
-    # POST VIEW COUNTER
 
     post_count = models.PositiveIntegerField(
         default=0,
         editable=False,
         verbose_name="Post Count"
     )
-
-    # DATE
 
     date_uploaded = models.DateTimeField(
         auto_now_add=True,
@@ -315,48 +504,13 @@ class BlogPost(models.Model):
 
         verbose_name_plural = "Blog Posts"
 
-    post_title = models.CharField(
-        max_length=300,
-        verbose_name="Post Title"
-    )
-
-    label = models.CharField(
-        max_length=100
-    )
-
-    abstract = models.TextField(
-        blank=True,
-        verbose_name="Abstract"
-    )
-
-    header_picture = models.ImageField(
-        upload_to="blog/",
-        blank=True,
-        null=True,
-        verbose_name="Header Picture"
-    )
-
-    date_uploaded = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Date of Upload"
-    )
-
-    post_count = models.PositiveIntegerField(
-        default=0,
-        editable=False,
-        verbose_name="Post Count"
-    )
-
-    class Meta:
-        ordering = ["-date_uploaded"]
-        verbose_name = "Blog Post"
-        verbose_name_plural = "Blog Posts"
-
     def __str__(self):
         return self.post_title
 
 
-# BLOG COMMENT
+
+# BLOG COMMENTS
+
 
 class BlogComment(models.Model):
 
@@ -387,14 +541,17 @@ class BlogComment(models.Model):
 
     date_commented = models.DateTimeField(
         auto_now_add=True,
-        verbose_name="Date of Comment"
+        verbose_name="Date Commented"
     )
 
     class Meta:
-        ordering = ["date_commented"]
+        ordering = [
+            "date_commented"
+        ]
+
         verbose_name = "Blog Comment"
+
         verbose_name_plural = "Blog Comments"
 
     def __str__(self):
         return f"{self.name} - {self.blog_post.post_title}"
-

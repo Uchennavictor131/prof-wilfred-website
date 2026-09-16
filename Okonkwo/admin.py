@@ -10,7 +10,9 @@ from .models import (
 )
 
 
+
 # TEAM MEMBERS
+
 
 @admin.register(TeamMember)
 class TeamMemberAdmin(admin.ModelAdmin):
@@ -31,6 +33,7 @@ class TeamMemberAdmin(admin.ModelAdmin):
         "name",
         "position",
         "email",
+        "category",
     )
 
     list_editable = (
@@ -43,8 +46,20 @@ class TeamMemberAdmin(admin.ModelAdmin):
         "name",
     )
 
+    # =====================================================
+    # CATEGORY SUGGESTIONS
+    # =====================================================
+
+    class Media:
+
+        js = (
+            "admin/js/team_member_category.js",
+        )
+
+
 
 # PUBLICATIONS
+
 
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
@@ -155,7 +170,9 @@ class PublicationAdmin(admin.ModelAdmin):
     )
 
 
+
 # UPDATE PROFILE
+
 
 @admin.register(UpdateProfile)
 class UpdateProfileAdmin(admin.ModelAdmin):
@@ -168,17 +185,17 @@ class UpdateProfileAdmin(admin.ModelAdmin):
     )
 
 
+
 # BLOG POSTS
+
 
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
 
-    # BLOG POST DASHBOARD
-
     list_display = (
         "post_title",
         "label",
-        "header_picture_preview",
+        "post_file_preview",
         "post_count",
         "date_uploaded",
     )
@@ -200,11 +217,9 @@ class BlogPostAdmin(admin.ModelAdmin):
 
     readonly_fields = (
         "date_uploaded",
-        "header_picture_preview",
+        "post_file_preview",
         "post_count",
     )
-
-    # ADD / EDIT BLOG POST
 
     fieldsets = (
 
@@ -244,11 +259,29 @@ class BlogPostAdmin(admin.ModelAdmin):
 
     )
 
-    # HEADER IMAGE PREVIEW
+    # =====================================================
+    # BLOG POST FILE PREVIEW
+    # =====================================================
 
-    def header_picture_preview(self, obj):
+    def post_file_preview(self, obj):
 
-        if obj.header_picture:
+        if not obj.header_picture:
+            return "No file"
+
+        file_name = obj.header_picture.name.lower()
+
+        image_extensions = (
+            ".jpg",
+            ".jpeg",
+            ".png",
+            ".gif",
+            ".webp",
+            ".bmp",
+            ".tiff",
+            ".tif",
+        )
+
+        if file_name.endswith(image_extensions):
 
             return format_html(
                 '<img src="{}" width="120" height="80" '
@@ -256,12 +289,17 @@ class BlogPostAdmin(admin.ModelAdmin):
                 obj.header_picture.url
             )
 
-        return "No image"
+        return format_html(
+            '<a href="{}" target="_blank">📄 Open uploaded document</a>',
+            obj.header_picture.url
+        )
 
-    header_picture_preview.short_description = "Header Picture"
+    post_file_preview.short_description = "Post File"
 
 
-# BLOG COMMENT ADMIN
+
+# BLOG COMMENTS
+
 
 @admin.register(BlogComment)
 class BlogCommentAdmin(admin.ModelAdmin):
@@ -273,14 +311,11 @@ class BlogCommentAdmin(admin.ModelAdmin):
         "comment_preview",
         "approved",
         "date_commented",
-        
     )
 
     list_filter = (
         "approved",
         "date_commented",
-        #"blog_post",
-        
     )
 
     search_fields = (
@@ -295,12 +330,13 @@ class BlogCommentAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = (
-          "blog_post",
-          "name",
-          "email",
-          "comment",
-          "date_commented",
+        "blog_post",
+        "name",
+        "email",
+        "comment",
+        "date_commented",
     )
+
     fields = (
         "blog_post",
         "name",
@@ -310,18 +346,28 @@ class BlogCommentAdmin(admin.ModelAdmin):
         "date_commented",
     )
 
-
     ordering = (
         "-date_commented",
     )
-   
 
     def comment_preview(self, obj):
+
         if len(obj.comment) > 25:
+
             return obj.comment[:25] + "..."
+
         return obj.comment
+
     comment_preview.short_description = "Comment"
-    def changeform_view(self, request, object_id=None, form_url="", extra_context=None):
+
+    def changeform_view(
+        self,
+        request,
+        object_id=None,
+        form_url="",
+        extra_context=None
+    ):
+
         extra_context = extra_context or {}
 
         extra_context["show_save_and_add_another"] = False

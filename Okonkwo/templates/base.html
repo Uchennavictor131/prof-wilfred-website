@@ -1,0 +1,690 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Prof. Wilfred I. Okonkwo">
+
+    <title>
+        {% block title %}
+        Prof. Wilfred I. Okonkwo 
+        {% endblock %}
+    </title>
+
+
+    <!--GOOGLE FONTS-->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <!--FONT AWESOME-->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!--MAIN CSS-->
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+<!--NAVIGATION -->
+
+<header class="navbar">
+
+    <div class="navbar-container">
+
+
+        <!--MOBILE MENU BUTTON-->
+
+        <button type="button"
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                aria-label="Open navigation menu">
+
+            <i class="fas fa-bars"></i>
+
+        </button>
+
+
+        <!--SITE LOGO-->
+
+        <a href="{% url 'home' %}"
+           class="site-logo">
+
+            Prof. Wilfred I. Okonkwo 
+
+        </a>
+
+
+        <!--DESKTOP NAVIGATION-->
+
+        <nav class="nav-links"
+             id="navLinks">
+
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+
+            <a href="{% url 'about' %}">
+                About
+            </a>
+
+
+            <a href="{% url 'research' %}">
+                Research
+            </a>
+
+
+            <a href="{% url 'foundation' %}">
+                Foundation
+            </a>
+
+
+            <a href="{% url 'publications' %}">
+                Publications
+            </a>
+
+
+            <a href="{% url 'team' %}">
+                Team
+            </a>
+
+
+
+            <!-- BLOG -->
+
+            <a href="{% url 'blog' %}">
+                Blog
+            </a>
+
+
+            <a href="{% url 'contact' %}">
+                Contact
+            </a>
+
+
+            <!-- This section is hidden on desktop. -->
+
+            <div class="mobile-menu-social">
+
+
+                <span class="mobile-social-title">
+                    Academic &amp; Social Profiles
+                </span>
+
+
+                <!-- GOOGLE SCHOLAR-->
+
+                {% if profile and profile.google_scholar %}
+
+                    <a href="{{ profile.google_scholar }}"
+                       class="mobile-social-link"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fas fa-graduation-cap"></i>
+
+                        <span>
+                            Google Scholar
+                        </span>
+
+                    </a>
+
+                {% endif %}
+
+
+                <!-- RESEARCHGATE-->
+
+                {% if profile and profile.ResearchGate %}
+
+                    <a href="{{ profile.ResearchGate }}"
+                       class="mobile-social-link"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fab fa-researchgate"></i>
+
+                        <span>
+                            ResearchGate
+                        </span>
+
+                    </a>
+
+                {% endif %}
+
+
+                <!-- ORCID-->
+
+                {% if profile and profile.ORCID %}
+
+                    <a href="{{ profile.ORCID }}"
+                       class="mobile-social-link"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fab fa-orcid"></i>
+
+                        <span>
+                            ORCID
+                        </span>
+
+                    </a>
+
+                {% endif %}
+
+
+                <!-- LINKEDIN-->
+
+                {% if profile and profile.linkedin %}
+
+                    <a href="{{ profile.linkedin }}"
+                       class="mobile-social-link"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fab fa-linkedin-in"></i>
+
+                        <span>
+                            LinkedIn
+                        </span>
+
+                    </a>
+
+                {% endif %}
+
+
+                <!-- LIVEDNA-->
+
+                {% if profile and profile.live_DNA %}
+
+                    <a href="{{ profile.live_DNA }}"
+                       class="mobile-social-link"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fas fa-dna"></i>
+
+                        <span>
+                            LiveDNA
+                        </span>
+
+                    </a>
+
+                {% endif %}
+
+
+            </div>
+
+
+        </nav>
+
+
+        <!--DESKTOP SEARCH-->
+
+        <form class="nav-search"
+              action="{% url 'publications' %}"
+              method="get">
+
+            <i class="fas fa-search"></i>
+
+            <input type="text"
+                   name="q"
+                   placeholder="Search...">
+
+        </form>
+
+
+        <!--MOBILE SEARCH BUTTON-->
+
+        <button type="button"
+                class="mobile-search-button"
+                id="mobileSearchButton"
+                aria-label="Open search">
+
+            <i class="fas fa-search"></i>
+
+        </button>
+
+
+    </div>
+
+</header>
+
+
+<!--MOBILE SEARCH OVERLAY -->
+
+<div class="mobile-search-overlay"
+     id="mobileSearchOverlay">
+
+
+    <div class="mobile-search-box">
+
+
+        <button type="button"
+                class="close-mobile-search"
+                id="closeMobileSearch"
+                aria-label="Close search">
+
+            <i class="fas fa-times"></i>
+
+        </button>
+
+
+        <form action="{% url 'publications' %}"
+              method="get">
+
+            <div class="mobile-search-input">
+
+                <i class="fas fa-search"></i>
+
+                <input type="text"
+                       name="q"
+                       placeholder="Search publications..."
+                       autofocus>
+
+            </div>
+
+
+            <button type="submit"
+                    class="mobile-search-submit">
+
+                Search
+
+            </button>
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+<!--MAIN CONTENT -->
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+<!--FOOTER -->
+
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+
+        <div>
+
+            <strong>
+                Prof. Wilfred I. Okonkwo 
+            </strong>
+
+            <p>
+                Research, innovation and academic excellence.
+            </p>
+
+        </div>
+
+
+        <!--FOOTER SOCIAL PROFILES
+             ONLY SHOW A PROFILE WHEN THE ADMIN URL EXISTS.-->
+
+        <div class="footer-social">
+
+
+            <!-- GOOGLE SCHOLAR -->
+
+            {% if profile and profile.google_scholar %}
+
+                <a href="{{ profile.google_scholar }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Google Scholar">
+
+                    <i class="fas fa-graduation-cap"></i>
+
+                </a>
+
+            {% endif %}
+
+
+            <!-- RESEARCHGATE -->
+
+            {% if profile and profile.ResearchGate %}
+
+                <a href="{{ profile.ResearchGate }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="ResearchGate">
+
+                    <i class="fab fa-researchgate"></i>
+
+                </a>
+
+            {% endif %}
+
+
+            <!-- ORCID -->
+
+            {% if profile and profile.ORCID %}
+
+                <a href="{{ profile.ORCID }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="ORCID">
+
+                    <i class="fab fa-orcid"></i>
+
+                </a>
+
+            {% endif %}
+
+
+            <!-- LINKEDIN -->
+
+            {% if profile and profile.linkedin %}
+
+                <a href="{{ profile.linkedin }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="LinkedIn">
+
+                    <i class="fab fa-linkedin-in"></i>
+
+                </a>
+
+            {% endif %}
+
+
+            <!-- LIVEDNA -->
+
+            {% if profile and profile.live_DNA %}
+
+                <a href="{{ profile.live_DNA }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="LiveDNA">
+
+                    <i class="fas fa-dna"></i>
+
+                </a>
+
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        &copy; {% now "Y" %}
+        Prof. Wilfred I. Okonkwo .
+        All rights reserved.
+    
+
+    </div>
+
+
+</footer>
+
+
+<!--MOBILE MENU JAVASCRIPT -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    const menuButton =
+        document.getElementById("mobileMenuButton");
+
+
+    const navLinks =
+        document.getElementById("navLinks");
+
+
+    const searchButton =
+        document.getElementById("mobileSearchButton");
+
+
+    const searchOverlay =
+        document.getElementById("mobileSearchOverlay");
+
+
+    const closeSearch =
+        document.getElementById("closeMobileSearch");
+
+
+    /*MOBILE MENU*/
+
+    if (menuButton && navLinks) {
+
+        menuButton.addEventListener("click", function () {
+
+            navLinks.classList.toggle("open");
+
+            document.body.classList.toggle("menu-open");
+
+
+            const icon =
+                menuButton.querySelector("i");
+
+
+            if (navLinks.classList.contains("open")) {
+
+                if (icon) {
+
+                    icon.classList.remove("fa-bars");
+
+                    icon.classList.add("fa-times");
+
+                }
+
+                menuButton.setAttribute(
+                    "aria-label",
+                    "Close navigation menu"
+                );
+
+            } else {
+
+                if (icon) {
+
+                    icon.classList.remove("fa-times");
+
+                    icon.classList.add("fa-bars");
+
+                }
+
+                menuButton.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
+
+            }
+
+        });
+
+    }
+
+
+    /*CLOSE MOBILE MENU WHEN LINK IS CLICKED*/
+
+    if (navLinks) {
+
+        const menuItems =
+            navLinks.querySelectorAll("a");
+
+
+        menuItems.forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                navLinks.classList.remove("open");
+
+                document.body.classList.remove(
+                    "menu-open"
+                );
+
+
+                if (menuButton) {
+
+                    const icon =
+                        menuButton.querySelector("i");
+
+
+                    if (icon) {
+
+                        icon.classList.remove(
+                            "fa-times"
+                        );
+
+                        icon.classList.add(
+                            "fa-bars"
+                        );
+
+                    }
+
+
+                    menuButton.setAttribute(
+                        "aria-label",
+                        "Open navigation menu"
+                    );
+
+                }
+
+            });
+
+        });
+
+    }
+
+
+    /*MOBILE SEARCH OPEN*/
+
+    if (searchButton && searchOverlay) {
+
+        searchButton.addEventListener(
+            "click",
+            function () {
+
+                searchOverlay.classList.add("open");
+
+                document.body.classList.add(
+                    "search-open"
+                );
+
+            }
+        );
+
+    }
+
+
+    /*MOBILE SEARCH CLOSE*/
+
+    if (closeSearch && searchOverlay) {
+
+        closeSearch.addEventListener(
+            "click",
+            function () {
+
+                searchOverlay.classList.remove("open");
+
+                document.body.classList.remove(
+                    "search-open"
+                );
+
+            }
+        );
+
+    }
+
+
+    /*CLOSE SEARCH WITH ESC KEY*/
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+
+
+                if (searchOverlay) {
+
+                    searchOverlay.classList.remove(
+                        "open"
+                    );
+
+                }
+
+
+                if (navLinks) {
+
+                    navLinks.classList.remove(
+                        "open"
+                    );
+
+                }
+
+
+                document.body.classList.remove(
+                    "search-open"
+                );
+
+                document.body.classList.remove(
+                    "menu-open"
+                );
+
+            }
+
+        }
+    );
+
+
+});
+
+</script>
+
+
+{% block extra_js %}
+{% endblock %}
+
+
+</body>
+
+</html>

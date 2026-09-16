@@ -1,0 +1,126 @@
+{% extends "admin/change_list.html" %}
+
+{% load i18n static admin_urls %}
+
+
+{% block content_title %}
+
+<div class="publication-admin-page-header">
+
+    <div>
+
+        <!-- 
+             BREADCRUMB
+        = -->
+
+        <div class="publication-admin-breadcrumb">
+
+            <a href="{% url 'admin:index' %}">
+                Home
+            </a>
+
+            <span>›</span>
+
+            <a href="{% url 'admin:app_list' app_label='Okonkwo' %}">
+                Okonkwo
+            </a>
+
+            <span>›</span>
+
+            <span>
+                {{ cl.opts.verbose_name_plural|capfirst }}
+            </span>
+
+        </div>
+
+
+        <!-- 
+             PAGE TITLE
+        = -->
+
+        <h1>
+            {{ cl.opts.verbose_name_plural|capfirst }}
+        </h1>
+
+    </div>
+
+
+    <!-- 
+         MODEL-SPECIFIC ADD BUTTON
+    = -->
+
+    {% if has_add_permission %}
+
+    <div class="publication-admin-header-actions">
+
+        <a
+            href="{% url cl.opts|admin_urlname:'add' %}"
+            class="publication-add-button"
+        >
+
+            <span class="publication-add-icon">
+                +
+            </span>
+
+            Add {{ cl.opts.verbose_name|capfirst }}
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- PUBLICATION STATISTICS
+    ONLY SHOWS ON PUBLICATIONS PAGE-->
+
+{% if cl.opts.model_name == "publication" %}
+
+<div class="publication-statistics-grid">
+
+    <div class="publication-stat-card">
+
+        <div class="publication-stat-icon">
+            📖
+        </div>
+
+        <div class="publication-stat-content">
+
+            <h2>
+                {{ cl.result_count }}
+            </h2>
+
+            <p class="publication-stat-title">
+                Publications
+            </p>
+
+            <p class="publication-stat-subtitle">
+                Research publications
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+
+<!-- 
+     RESULTS TABLE
+ -->
+
+{% block result_list %}
+
+<div class="publication-admin-table-wrapper">
+
+    {{ block.super }}
+
+</div>
+
+{% endblock %}

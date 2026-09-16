@@ -1,0 +1,883 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+People | Prof. Wilfred I. Okonkwo Research Lab
+{% endblock %}
+
+
+{% block content %}
+
+<!-- =========================================================
+     PEOPLE PAGE
+========================================================= -->
+
+<section class="people-page">
+
+    <div class="people-container">
+
+
+        <!-- =================================================
+             PAGE INTRODUCTION
+        ================================================== -->
+
+        <div class="people-introduction">
+
+            <h1>
+                People
+            </h1>
+
+            <p>
+                Who we are
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MAIN PEOPLE CONTENT
+        ================================================== -->
+
+        <div class="people-layout">
+
+
+            <!-- =================================================
+                 LEFT CONTENT
+            ================================================== -->
+
+            <main class="people-main">
+
+
+                <!-- =============================================
+                     TEAM HEADING
+                ============================================== -->
+
+                <div class="people-section-heading">
+
+                    <h2>
+                        Team
+                    </h2>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     SEARCH
+                ============================================== -->
+
+                <div class="team-search">
+
+                    <span class="team-search-icon">
+                        🔍
+                    </span>
+
+                    <input
+                        type="search"
+                        id="teamSearch"
+                        placeholder="Search team members..."
+                        aria-label="Search team members"
+                    >
+
+                </div>
+
+
+
+                <!-- =============================================
+                     TEAM GRID
+                ============================================== -->
+
+                <div
+                    class="team-grid"
+                    id="teamGrid"
+                >
+
+                    {% for member in team_members %}
+
+                    <article
+                        class="team-card"
+                        data-name="{{ member.name|lower }}"
+                        data-position="{{ member.position|lower }}"
+                        data-category="{{ member.category }}"
+                    >
+
+
+                        <!-- =====================================
+                             MEMBER PHOTO
+                        ====================================== -->
+
+                        <div class="team-photo">
+
+                            {% if member.photo %}
+
+                            <img
+                                src="{{ member.photo.url }}"
+                                alt="{{ member.name }}"
+                            >
+
+                            {% else %}
+
+                            <div class="team-photo-placeholder">
+
+                                <span>
+                                    {{ member.name|first|upper }}
+                                </span>
+
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <!-- =====================================
+                             MEMBER INFORMATION
+                        ====================================== -->
+
+                        <div class="team-information">
+
+                            <!-- MEMBER NAME -->
+
+                            <h3>
+                                {{ member.name }}
+                            </h3>
+
+
+                            <!-- MEMBER POSITION -->
+
+                            {% if member.position %}
+
+                            <p class="team-position">
+                                {{ member.position }}
+                            </p>
+
+                            {% endif %}
+
+
+                            <!-- MEMBER CATEGORY -->
+
+                            {% if member.category %}
+
+                            <span class="team-category">
+
+                                {% if member.category == "director" %}
+
+                                    Director
+
+                                {% elif member.category == "professor" %}
+
+                                    Professor
+
+                                {% elif member.category == "postdoc" %}
+
+                                    Postdoctoral Researcher
+
+                                {% elif member.category == "phd" %}
+
+                                    PhD Student
+
+                                {% elif member.category == "masters" %}
+
+                                    Master's Student
+
+                                {% elif member.category == "undergraduate" %}
+
+                                    Undergraduate Student
+
+                                {% elif member.category == "research_assistant" %}
+
+                                    Research Assistant
+
+                                {% elif member.category == "visiting_scholar" %}
+
+                                    Visiting Scholar
+
+                                {% elif member.category == "visiting_student" %}
+
+                                    Visiting Student
+
+                                {% elif member.category == "alumni" %}
+
+                                    Alumni
+
+                                {% else %}
+
+                                    Other
+
+                                {% endif %}
+
+                            </span>
+
+                            {% endif %}
+
+
+
+                            <!-- =================================
+                                 CONTACT LINKS
+                                 BIOGRAPHY REMOVED
+                            ================================== -->
+
+                            <div class="team-links">
+
+                                {% if member.email %}
+
+                                <a
+                                    href="mailto:{{ member.email }}"
+                                    class="team-email"
+                                >
+                                    Email
+                                </a>
+
+                                {% endif %}
+
+
+                                {% if member.linkedin %}
+
+                                <a
+                                    href="{{ member.linkedin }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="team-linkedin"
+                                >
+                                    LinkedIn
+                                </a>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    {% empty %}
+
+
+                    <!-- =========================================
+                         EMPTY STATE
+                    ========================================== -->
+
+                    <div class="team-empty">
+
+                        <h2>
+                            No team members added yet
+                        </h2>
+
+                        <p>
+                            No team members found or has not been added yet .
+                        </p>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+
+                <!-- =============================================
+                     NO SEARCH RESULTS
+                ============================================== -->
+
+                <div
+                    id="teamNoResults"
+                    class="team-no-results"
+                    style="display: none;"
+                >
+
+                    <h3>
+                        No team members found
+                    </h3>
+
+                    <p>
+                        Try another name, position or category.
+                    </p>
+
+                </div>
+
+
+            </main>
+
+
+
+            <!-- =================================================
+                 RIGHT SIDEBAR
+            ================================================== -->
+
+            <aside class="people-sidebar">
+
+
+                <!-- =============================================
+                     SEARCH
+                ============================================== -->
+
+                <div class="sidebar-search">
+
+                    <span>
+                        🔍
+                    </span>
+
+                    <input
+                        type="search"
+                        id="sidebarTeamSearch"
+                        placeholder="Search..."
+                        aria-label="Search team members"
+                    >
+
+                </div>
+
+
+
+                <!-- =============================================
+                     CATEGORIES
+                ============================================== -->
+
+                <div class="team-categories">
+
+                    <h3>
+                        Categories
+                    </h3>
+
+
+                    <!-- ALL -->
+
+                    <button
+                        type="button"
+                        class="category-filter active"
+                        data-category-filter="all"
+                    >
+
+                        <strong>
+                            All
+                        </strong>
+
+                        <span id="count-all">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- DIRECTOR -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="director"
+                    >
+
+                        Director
+
+                        <span id="count-director">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- PROFESSOR -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="professor"
+                    >
+
+                        Professor
+
+                        <span id="count-professor">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- POSTDOC -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="postdoc"
+                    >
+
+                        Postdoctoral Researcher
+
+                        <span id="count-postdoc">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- PHD -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="phd"
+                    >
+
+                        PhD Student
+
+                        <span id="count-phd">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- MASTERS -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="masters"
+                    >
+
+                        Master's Student
+
+                        <span id="count-masters">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- UNDERGRADUATE -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="undergraduate"
+                    >
+
+                        Undergraduate
+
+                        <span id="count-undergraduate">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- RESEARCH ASSISTANT -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="research_assistant"
+                    >
+
+                        Research Assistant
+
+                        <span id="count-research_assistant">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- VISITING SCHOLAR -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="visiting_scholar"
+                    >
+
+                        Visiting Scholar
+
+                        <span id="count-visiting_scholar">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- VISITING STUDENT -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="visiting_student"
+                    >
+
+                        Visiting Student
+
+                        <span id="count-visiting_student">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- ALUMNI -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="alumni"
+                    >
+
+                        Alumni
+
+                        <span id="count-alumni">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- OTHER -->
+
+                    <button
+                        type="button"
+                        class="category-filter"
+                        data-category-filter="other"
+                    >
+
+                        Other
+
+                        <span id="count-other">
+                            0
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TEAM FILTER SCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const cards = document.querySelectorAll(".team-card");
+
+    const categoryButtons =
+        document.querySelectorAll(".category-filter");
+
+    const searchInput =
+        document.getElementById("teamSearch");
+
+    const sidebarSearch =
+        document.getElementById("sidebarTeamSearch");
+
+    const noResults =
+        document.getElementById("teamNoResults");
+
+
+    let selectedCategory = "all";
+
+    let searchText = "";
+
+
+
+    /* =====================================================
+       CATEGORY COUNTS
+    ===================================================== */
+
+    const categoryCounts = {
+
+        all: cards.length,
+
+        director: 0,
+
+        professor: 0,
+
+        postdoc: 0,
+
+        phd: 0,
+
+        masters: 0,
+
+        undergraduate: 0,
+
+        research_assistant: 0,
+
+        visiting_scholar: 0,
+
+        visiting_student: 0,
+
+        alumni: 0,
+
+        other: 0
+
+    };
+
+
+
+    /* =====================================================
+       COUNT TEAM MEMBERS
+    ===================================================== */
+
+    cards.forEach(function (card) {
+
+        const category =
+            card.dataset.category;
+
+        if (
+            category &&
+            Object.prototype.hasOwnProperty.call(
+                categoryCounts,
+                category
+            )
+        ) {
+
+            categoryCounts[category]++;
+
+        }
+
+    });
+
+
+
+    /* =====================================================
+       DISPLAY CATEGORY COUNTS
+    ===================================================== */
+
+    Object.keys(categoryCounts).forEach(function (category) {
+
+        const element =
+            document.getElementById(
+                "count-" + category
+            );
+
+        if (element) {
+
+            element.textContent =
+                categoryCounts[category];
+
+        }
+
+    });
+
+
+
+    /* =====================================================
+       HIDE EMPTY CATEGORIES
+       ALL ALWAYS REMAINS VISIBLE
+    ===================================================== */
+
+    categoryButtons.forEach(function (button) {
+
+        const category =
+            button.dataset.categoryFilter;
+
+        if (
+            category !== "all" &&
+            categoryCounts[category] === 0
+        ) {
+
+            button.style.display = "none";
+
+        }
+
+    });
+
+
+
+    /* =====================================================
+       FILTER TEAM MEMBERS
+    ===================================================== */
+
+    function filterMembers() {
+
+        let visibleCount = 0;
+
+
+        cards.forEach(function (card) {
+
+            const category =
+                card.dataset.category || "";
+
+            const name =
+                card.dataset.name || "";
+
+            const position =
+                card.dataset.position || "";
+
+
+            const matchesCategory =
+                selectedCategory === "all" ||
+                category === selectedCategory;
+
+
+            const matchesSearch =
+                !searchText ||
+                name.includes(searchText) ||
+                position.includes(searchText) ||
+                category.includes(searchText);
+
+
+            if (
+                matchesCategory &&
+                matchesSearch
+            ) {
+
+                card.style.display = "";
+
+                visibleCount++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+
+
+        /* =================================================
+           NO RESULTS MESSAGE
+        ================================================== */
+
+        if (noResults) {
+
+            if (visibleCount === 0) {
+
+                noResults.style.display = "block";
+
+            } else {
+
+                noResults.style.display = "none";
+
+            }
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       CATEGORY BUTTONS
+    ===================================================== */
+
+    categoryButtons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                categoryButtons.forEach(
+                    function (item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                this.classList.add("active");
+
+
+                selectedCategory =
+                    this.dataset.categoryFilter;
+
+
+                filterMembers();
+
+            }
+        );
+
+    });
+
+
+
+    /* =====================================================
+       MAIN SEARCH
+    ===================================================== */
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                searchText =
+                    this.value
+                    .toLowerCase()
+                    .trim();
+
+
+                if (sidebarSearch) {
+
+                    sidebarSearch.value =
+                        this.value;
+
+                }
+
+
+                filterMembers();
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       SIDEBAR SEARCH
+    ===================================================== */
+
+    if (sidebarSearch) {
+
+        sidebarSearch.addEventListener(
+            "input",
+            function () {
+
+                searchText =
+                    this.value
+                    .toLowerCase()
+                    .trim();
+
+
+                if (searchInput) {
+
+                    searchInput.value =
+                        this.value;
+
+                }
+
+
+                filterMembers();
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       INITIAL FILTER
+    ===================================================== */
+
+    filterMembers();
+
+});
+
+</script>
+
+
+{% endblock %}

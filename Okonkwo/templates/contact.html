@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Contact | Prof. Wilfred I. Okonkwo Research Lab
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =========================================================
+     PAGE HEADER
+========================================================= -->
+
+<div class="page-header">
+
+    <div class="overlay">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <h1>
+                        Contact
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CONTACT SECTION
+========================================================= -->
+
+<section
+    id="contact"
+    class="contact"
+>
+
+    <div class="container">
+
+
+        <!-- =================================================
+             SECTION TITLE
+        ================================================== -->
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div
+                    class="section-title text-center wow fadeInDown"
+                    data-wow-duration="2s"
+                    data-wow-delay="50ms"
+                >
+
+                    <h2>
+                        Contact
+                    </h2>
+
+                    <p>
+                        Fill in the form below to contact Prof. Wilfred I. Okonkwo.
+                        We will get back to you as soon as possible.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CONTACT FORM
+        ================================================== -->
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <form
+                    name="sentMessage"
+                    id="contactForm"
+                    method="post"
+                    action="{% url 'contact' %}"
+                    novalidate
+                >
+
+                    {% csrf_token %}
+
+
+                    <div class="row">
+
+
+                        <!-- =====================================
+                             LEFT SIDE
+                        ====================================== -->
+
+                        <div
+                            class="col-md-6 wow fadeInLeft"
+                            data-wow-duration="2s"
+                            data-wow-delay="600ms"
+                        >
+
+
+                            <!-- NAME -->
+
+                            <div class="form-group">
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Your Name *"
+                                    name="name"
+                                    id="name"
+                                    maxlength="150"
+                                    required
+                                >
+
+                                <p class="help-block text-danger"></p>
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+
+                            <div class="form-group">
+
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    placeholder="Your Email *"
+                                    name="email"
+                                    id="email"
+                                    maxlength="254"
+                                    required
+                                >
+
+                                <p class="help-block text-danger"></p>
+
+                            </div>
+
+
+                            <!-- PHONE -->
+
+                            <div class="form-group">
+
+                                <input
+                                    type="tel"
+                                    class="form-control"
+                                    placeholder="Your Phone"
+                                    name="phone"
+                                    id="phone"
+                                    maxlength="30"
+                                >
+
+                                <p class="help-block text-danger"></p>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =====================================
+                             RIGHT SIDE
+                        ====================================== -->
+
+                        <div
+                            class="col-md-6 wow fadeInRight"
+                            data-wow-duration="2s"
+                            data-wow-delay="600ms"
+                        >
+
+
+                            <!-- MESSAGE -->
+
+                            <div class="form-group">
+
+                                <textarea
+                                    class="form-control"
+                                    placeholder="Your Message *"
+                                    name="message"
+                                    id="message"
+                                    rows="8"
+                                    required
+                                ></textarea>
+
+                                <p class="help-block text-danger"></p>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+
+                        <!-- =====================================
+                             DJANGO MESSAGES
+                        ====================================== -->
+
+                        <div
+                            class="col-lg-12 text-center wow zoomIn"
+                            data-wow-duration="1s"
+                            data-wow-delay="600ms"
+                        >
+
+                            <div id="success">
+
+
+                                {% if messages %}
+
+                                    {% for message in messages %}
+
+                                        {% if message.tags == "success" %}
+
+                                            <div class="alert alert-success">
+
+                                                {{ message }}
+
+                                            </div>
+
+                                        {% elif message.tags == "error" %}
+
+                                            <div class="alert alert-danger">
+
+                                                {{ message }}
+
+                                            </div>
+
+                                        {% else %}
+
+                                            <div class="alert alert-info">
+
+                                                {{ message }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                {% endif %}
+
+
+                            </div>
+
+
+                            <!-- =================================
+                                 SUBMIT BUTTON
+                            ================================== -->
+
+                            <button
+                                type="submit"
+                                name="send"
+                                class="btn btn-primary"
+                            >
+
+                                Send Message
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     GOOGLE MAP
+========================================================= -->
+
+<div
+    class="img-responsive"
+    style="margin: 0 0 20% 0;"
+    id="gmap"
+>
+
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31725.65746152791!2d7.55366!3d6.302152!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7296c776949adb7a!2sEnugu%20State%20University%20of%20Science%20and%20Technology!5e0!3m2!1sen!2sus!4v1591809207840!5m2!1sen!2sus"
+        width="800"
+        height="600"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        aria-hidden="false"
+        tabindex="0"
+    ></iframe>
+
+</div>
+
+
+{% endblock %}

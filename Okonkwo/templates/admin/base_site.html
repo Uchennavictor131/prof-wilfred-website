@@ -1,0 +1,535 @@
+{% extends "admin/base.html" %}
+
+{% load i18n static %}
+
+
+{% block extrastyle %}
+
+{{ block.super }}
+
+<link
+    rel="stylesheet"
+    href="{% static 'css/custom_admin.css' %}"
+>
+
+{% endblock %}
+
+
+{% block title %}
+
+{% if is_popup %}
+    {% translate "Django site admin" %}
+{% else %}
+    Administration
+{% endif %}
+
+{% endblock %}
+
+
+{% block branding %}
+
+<div class="custom-admin-brand">
+
+    <!-- =====================================================
+         LOGO
+    ====================================================== -->
+
+    <div class="custom-admin-logo">
+
+        W
+
+    </div>
+
+
+    <!-- =====================================================
+         BRAND TEXT
+    ====================================================== -->
+
+    <div class="custom-admin-title">
+
+        <h1>
+
+            Prof. Wilfred I. Okonkwo
+
+        </h1>
+
+
+        <span>
+
+            Research Lab Administration
+
+        </span>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block usertools %}
+
+<div class="custom-user-tools">
+
+    {% if user.is_authenticated %}
+
+
+        <!-- =================================================
+             VIEW WEBSITE
+        ================================================== -->
+
+        <a
+            href="/"
+            class="header-site-link"
+            title="View Website"
+        >
+
+            View Site
+
+        </a>
+
+
+        <!-- =================================================
+             CHANGE PASSWORD
+        ================================================== -->
+
+        <a
+            href="{% url 'admin:password_change' %}"
+            class="header-password-link"
+        >
+
+            Change Password
+
+        </a>
+
+
+        <!-- =================================================
+             USER
+        ================================================== -->
+
+        <span class="admin-welcome">
+
+            Welcome, {{ user.get_username }}
+
+        </span>
+
+
+        <!-- =================================================
+             LOGOUT
+
+             IMPORTANT:
+             Django admin logout uses POST.
+        ================================================== -->
+
+        <form
+            action="{% url 'admin:logout' %}"
+            method="post"
+            class="header-logout-form"
+        >
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                class="header-logout-link"
+            >
+
+                Log out
+
+            </button>
+
+        </form>
+
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+
+{% block nav-sidebar %}
+
+<nav
+    id="customAdminSidebar"
+    class="custom-admin-sidebar"
+>
+
+
+    <!-- =====================================================
+         DASHBOARD
+    ====================================================== -->
+
+    <a
+        href="{% url 'admin:index' %}"
+        class="admin-sidebar-item"
+    >
+
+        <span class="sidebar-icon">
+
+            ⌂
+
+        </span>
+
+
+        <span class="sidebar-text">
+
+            Dashboard
+
+        </span>
+
+    </a>
+
+
+    <!-- =====================================================
+         WEBSITE MANAGEMENT
+    ====================================================== -->
+
+    <div class="sidebar-section-title">
+
+        WEBSITE MANAGEMENT
+
+    </div>
+
+
+    <!-- =====================================================
+         PROFILE
+    ====================================================== -->
+
+    <a
+        href="{% url 'admin:Okonkwo_updateprofile_changelist' %}"
+        class="admin-sidebar-item"
+    >
+
+        <span class="sidebar-icon">
+
+            👤
+
+        </span>
+
+
+        <span class="sidebar-text">
+
+            Profile
+
+        </span>
+
+    </a>
+
+
+    <!-- =====================================================
+         TEAM MEMBERS
+    ====================================================== -->
+
+    <a
+        href="{% url 'admin:Okonkwo_teammember_changelist' %}"
+        class="admin-sidebar-item"
+    >
+
+        <span class="sidebar-icon">
+
+            👥
+
+        </span>
+
+
+        <span class="sidebar-text">
+
+            Team Members
+
+        </span>
+
+    </a>
+
+
+    <!-- =====================================================
+         PUBLICATIONS
+    ====================================================== -->
+
+    <a
+        href="{% url 'admin:Okonkwo_publication_changelist' %}"
+        class="admin-sidebar-item"
+    >
+
+        <span class="sidebar-icon">
+
+            📖
+
+        </span>
+
+
+        <span class="sidebar-text">
+
+            Publications
+
+        </span>
+
+    </a>
+
+
+
+    <!-- =====================================================
+         BLOG POSTS
+    ====================================================== -->
+
+    <a
+        href="{% url 'admin:Okonkwo_blogpost_changelist' %}"
+        class="admin-sidebar-item"
+    >
+
+        <span class="sidebar-icon">
+
+            📝
+
+        </span>
+
+
+        <span class="sidebar-text">
+
+            Blog Posts
+
+        </span>
+
+    </a>
+
+
+    <!-- =====================================================
+         BLOG COMMENTS
+    ====================================================== -->
+
+    <a
+        href="{% url 'admin:Okonkwo_blogcomment_changelist' %}"
+        class="admin-sidebar-item"
+    >
+
+        <span class="sidebar-icon">
+
+            💬
+
+        </span>
+
+
+        <span class="sidebar-text">
+
+            Comments
+
+        </span>
+
+    </a>
+
+
+    <!-- =====================================================
+         ADMINISTRATION
+    ====================================================== -->
+
+    <div class="sidebar-section-title">
+
+        ADMINISTRATION
+
+    </div>
+
+
+    <!-- =====================================================
+         USERS
+    ====================================================== -->
+
+    <a
+        href="{% url 'admin:auth_user_changelist' %}"
+        class="admin-sidebar-item"
+    >
+
+        <span class="sidebar-icon">
+
+            👤
+
+        </span>
+
+
+        <span class="sidebar-text">
+
+            Users
+
+        </span>
+
+    </a>
+
+
+    <!-- =====================================================
+         GROUPS
+    ====================================================== -->
+
+    <a
+        href="{% url 'admin:auth_group_changelist' %}"
+        class="admin-sidebar-item"
+    >
+
+        <span class="sidebar-icon">
+
+            ⚙
+
+        </span>
+
+
+        <span class="sidebar-text">
+
+            Groups & Permissions
+
+        </span>
+
+    </a>
+
+
+    <!-- =====================================================
+         SITE SETTINGS
+    ====================================================== -->
+
+    <a
+        href="{% url 'admin:index' %}"
+        class="admin-sidebar-item"
+    >
+
+        <span class="sidebar-icon">
+
+            ⚙
+
+        </span>
+
+
+        <span class="sidebar-text">
+
+            Site Settings
+
+        </span>
+
+    </a>
+
+
+    <!-- =====================================================
+         DIVIDER
+    ====================================================== -->
+
+    <div class="sidebar-divider">
+
+    </div>
+
+
+    <!-- =====================================================
+         LOGOUT
+
+         IMPORTANT:
+         This is a POST form, not a normal GET link.
+    ====================================================== -->
+
+    <form
+        action="{% url 'admin:logout' %}"
+        method="post"
+        class="sidebar-logout-form"
+    >
+
+        {% csrf_token %}
+
+        <button
+            type="submit"
+            class="admin-sidebar-item logout-sidebar-item"
+        >
+
+            <span class="sidebar-icon">
+
+                ↪
+
+            </span>
+
+
+            <span class="sidebar-text">
+
+                Log out
+
+            </span>
+
+        </button>
+
+    </form>
+
+
+</nav>
+
+{% endblock %}
+
+
+{% block footer %}
+
+<footer class="custom-admin-footer">
+
+    <div class="admin-footer-links">
+
+        <span>
+
+            Django Administration
+
+        </span>
+
+
+        <span class="footer-divider">
+
+            /
+
+        </span>
+
+
+        <a
+            href="/"
+            target="_blank"
+        >
+
+            View site
+
+        </a>
+
+
+        <span class="footer-divider">
+
+            /
+
+        </span>
+
+
+        <a
+            href="https://docs.djangoproject.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            Documentation
+
+        </a>
+
+
+        <span class="footer-divider">
+
+            /
+
+        </span>
+
+
+        <a
+            href="https://www.djangoproject.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            Django
+
+        </a>
+
+    </div>
+
+</footer>
+
+{% endblock %}
+
+
+{% block extrahead %}
+
+{{ block.super }}
+
+{% endblock %}

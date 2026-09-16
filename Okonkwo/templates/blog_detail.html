@@ -1,0 +1,427 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ post.post_title }} | Prof. Wilfred I. Okonkwo Research Lab
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =======
+     PAGE HEADER
+======= -->
+
+<div class="page-header">
+
+    <div class="overlay">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <h1>
+                        {{ post.post_title }}
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =======
+     BLOG DETAIL SECTION
+======= -->
+
+<div class="container">
+
+    <div class="row">
+
+
+        <!-- ===
+             BLOG BODY
+        ==== -->
+
+        <div class="col-md-8 blog-body">
+
+
+            <div class="single-blog-post">
+
+
+                <!-- 
+                     HEADER PICTURE
+                 -->
+
+                {% if post.header_picture %}
+
+                    <div class="post-img">
+
+                        <img
+                            src="{{ post.header_picture.url }}"
+                            class="img-responsive"
+                            alt="{{ post.post_title }}"
+                        >
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- 
+                     POST TITLE
+                 -->
+
+                <h1 class="post-title">
+
+                    {{ post.post_title }}
+
+                </h1>
+
+
+                <!-- 
+                     POST META
+                 -->
+
+                <div class="post-meta">
+
+                    <ul class="pull-left">
+
+
+                        <!-- 
+                             DATE
+                         -->
+
+                        <li>
+
+                            <i class="fa fa-calendar"></i>
+
+                            {{ post.date_uploaded|date:"D, d-M-Y" }}
+
+                        </li>
+
+
+                        <!-- 
+                             AUTHOR
+                         -->
+
+                        <li>
+
+                            <i class="fa fa-user"></i>
+
+                            <a href="{% url 'about' %}">
+
+                                Prof. Wilfred I. Okonkwo
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- 
+                             LABEL
+                         -->
+
+                        <li>
+
+                            <i class="fa fa-bookmark"></i>
+
+                            {{ post.label }}
+
+                        </li>
+
+
+
+                        <!-- 
+                             COMMENTS
+                         -->
+
+                        <li>
+
+                            <i class="fa fa-comments"></i>
+
+                            <a href="#comments">
+
+                                {{ comment_count }} comments
+
+                            </a>
+
+                        </li>
+
+
+                    </ul>
+
+                </div>
+
+
+                <!-- 
+                     BLOG ABSTRACT
+                 -->
+
+                <div class="post-content">
+
+
+                    <h3>
+                        Abstract
+                    </h3>
+
+
+                    {% if post.abstract %}
+
+                        <p>
+
+                            {{ post.abstract|linebreaks }}
+
+                        </p>
+
+                    {% else %}
+
+                        <p>
+
+                            No abstract has been provided for this
+                            blog post.
+
+                        </p>
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- 
+                 COMMENTS SECTION
+             -->
+
+            <div
+                class="blog-comments"
+                id="comments"
+            >
+
+
+                <div class="section-heading-2">
+
+                    <h3 class="section-title">
+
+                        <span>
+                            Comments ({{ comment_count }})
+                        </span>
+
+                    </h3>
+
+                </div>
+
+
+                <!-- 
+                     APPROVED COMMENTS
+                 -->
+
+                {% if comments %}
+
+
+                    {% for comment in comments %}
+
+
+                        <div class="blog-comment">
+
+
+                            <div class="blog-comment-header">
+
+
+                                <!-- COMMENTER NAME -->
+
+                                <strong>
+
+                                    {{ comment.name }}
+
+                                </strong>
+
+
+                                <!-- COMMENT DATE -->
+
+                                <span>
+
+                                    {{ comment.date_commented|date:"D, d-M-Y H:i" }}
+
+                                </span>
+
+
+                            </div>
+
+
+                            <!-- 
+                                 COMMENT TEXT
+
+                                 EMAIL IS INTENTIONALLY NOT DISPLAYED.
+                                 
+                             -->
+
+                            <p>
+
+                                {{ comment.comment|linebreaksbr }}
+
+                            </p>
+
+
+                        </div>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <div class="no-comments">
+
+                        <p>
+
+                            No comments yet. Be the first to comment
+                            on this post.
+
+                        </p>
+
+                    </div>
+
+
+                {% endif %}
+
+
+                <!-- 
+                     COMMENT FORM
+                 -->
+
+                <div class="comment-form">
+
+
+                    <h3>
+                        Leave a Comment
+                    </h3>
+
+
+                    <p class="comment-form-description">
+
+                        Your email address will not be published.
+
+                    </p>
+
+
+                    <form
+                        method="POST"
+                        action="{% url 'blog_detail' post.pk %}#comments"
+                    >
+
+                        {% csrf_token %}
+
+
+                        <!-- 
+                             NAME
+                         -->
+
+                        <div class="form-group">
+
+                            <label for="comment-name">
+
+                                Name
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="comment-name"
+                                name="name"
+                                class="form-control"
+                                placeholder="Enter your name"
+                                maxlength="150"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- 
+                             EMAIL
+                         -->
+
+                        <div class="form-group">
+
+                            <label for="comment-email">
+
+                                Email
+
+                            </label>
+
+                            <input
+                                type="email"
+                                id="comment-email"
+                                name="email"
+                                class="form-control"
+                                placeholder="Enter your email address"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- 
+                             COMMENT
+                         -->
+
+                        <div class="form-group">
+
+                            <label for="comment-text">
+
+                                Comment
+
+                            </label>
+
+                            <textarea
+                                id="comment-text"
+                                name="comment"
+                                class="form-control"
+                                rows="6"
+                                placeholder="Write your comment here..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- 
+                             SUBMIT
+                         -->
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary comment-submit"
+                        >
+
+                            Submit Comment
+
+                        </button>
+
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+{% endblock %}

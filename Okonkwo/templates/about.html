@@ -1,0 +1,1886 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+About | Prof. Wilfred I. Okonkwo
+{% endblock %}
+
+
+{% block content %}
+
+<section class="about-page">
+
+    <div class="about-container">
+
+
+        <!-- =====================================================
+             LEFT PROFILE SECTION
+        ====================================================== -->
+
+        <aside class="about-profile">
+
+
+            <!-- PROFILE PHOTO -->
+
+            <div class="about-profile-photo">
+
+                {% if profile.photo %}
+                    <img
+                        src="{{ profile.photo.url }}"
+                        alt="{{ profile.name }}"
+                    >
+                {% else %}
+                    <img
+                        src="{% static 'images/profile.jpg' %}"
+                        alt="Prof. Wilfred I. Okonkwo"
+                    >
+                {% endif %}
+
+            </div>
+
+
+            <!-- PROFILE NAME -->
+
+            <h1>
+
+                {% if profile.name %}
+                    {{ profile.name }}
+                {% else %}
+                    Prof. Wilfred I. Okonkwo
+                {% endif %}
+
+            </h1>
+
+
+            <!-- POSITION -->
+
+            <p class="about-position">
+
+                {% if profile.title %}
+                    {{ profile.title }}
+                {% else %}
+                    Professor
+                {% endif %}
+
+            </p>
+
+
+            <!-- DEPARTMENT -->
+
+            {% if profile.department %}
+
+                <p class="about-affiliation">
+                    {{ profile.department }}
+                </p>
+
+            {% endif %}
+
+
+            <!-- INSTITUTION -->
+
+            <p class="about-affiliation">
+
+                {% if profile.institution %}
+                    {{ profile.institution }}
+                {% else %}
+                    University of Nigeria, Nsukka
+                {% endif %}
+
+            </p>
+
+
+            <!-- EMAIL -->
+
+            {% if profile.email %}
+
+                <p class="about-email">
+
+                    <a href="mailto:{{ profile.email }}">
+                        {{ profile.email }}
+                    </a>
+
+                </p>
+
+            {% endif %}
+
+
+            <!-- =====================================================
+                 ACADEMIC PROFILE LINKS
+            ====================================================== -->
+
+            <div class="about-social-heading">
+                ACADEMIC PROFILE LINK
+            </div>
+
+
+            <div class="about-social">
+
+
+                <!-- GOOGLE SCHOLAR -->
+
+                {% if profile.google_scholar %}
+
+                    <a
+                        href="{{ profile.google_scholar }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Google Scholar"
+                        title="Google Scholar"
+                    >
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </a>
+
+                {% endif %}
+
+
+                <!-- LINKEDIN -->
+
+                {% if profile.linkedin %}
+
+                    <a
+                        href="{{ profile.linkedin }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn"
+                        title="LinkedIn"
+                    >
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+
+                {% endif %}
+
+
+                <!-- LIVE DNA -->
+
+                {% if profile.live_DNA %}
+
+                    <a
+                        href="{{ profile.live_DNA }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Live DNA"
+                        title="Live DNA"
+                    >
+                        <i class="fa-solid fa-dna"></i>
+                    </a>
+
+                {% endif %}
+
+
+                <!-- RESEARCHGATE -->
+
+                {% if profile.ResearchGate %}
+
+                    <a
+                        href="{{ profile.ResearchGate }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="ResearchGate"
+                        title="ResearchGate"
+                    >
+                        <i class="fa-brands fa-researchgate"></i>
+                    </a>
+
+                {% endif %}
+
+
+                <!-- ORCID -->
+
+                {% if profile.ORCID %}
+
+                    <a
+                        href="{{ profile.ORCID }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="ORCID"
+                        title="ORCID"
+                    >
+                        <i class="fa-brands fa-orcid"></i>
+                    </a>
+
+                {% endif %}
+
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =====================================================
+             RIGHT CONTENT SECTION
+        ====================================================== -->
+
+        <main class="about-content">
+
+
+            <!-- =================================================
+                 ABOUT HEADING
+            ================================================== -->
+
+            <div class="about-heading">
+
+                <span class="about-label">
+                    BIOGRAPHY
+                </span>
+
+                <h2>
+
+                    About
+
+                    {% if profile.name %}
+                        {{ profile.name }}
+                    {% else %}
+                        Prof. Wilfred I. Okonkwo
+                    {% endif %}
+
+                </h2>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BIOGRAPHY
+            ================================================== -->
+
+            <div class="about-biography">
+
+
+                <p>
+                    Prof. Wilfred Ifeanyi Okonkwo is a certified professional
+                    Engineer and a University lecturer. He holds Ph.D, M.Eng
+                    and B.Eng. in Agricultural Engineering from the University
+                    of Nigeria, Nsukka (UNN) and the University of Agriculture,
+                    Makurdi, Nigeria.
+                </p>
+
+
+                <p>
+                    Prof. Okonkwo previously served as the Head of the Department
+                    of Agricultural and Bioresources Engineering, UNN, from
+                    2012 to 2016, where he instructs courses in Food and
+                    Bioprocess Engineering, Renewable Energy Technologies
+                    and Climate.
+                </p>
+
+
+                <p>
+                    He served as a Unit Head, Solar Thermal, at the National
+                    Centre for Energy Research and Development (NCERD), Energy
+                    Commission of Nigeria (ECN), Nsukka Centre, for several
+                    years from 2005 to 2006 and from 2008 to 2012.
+                </p>
+
+
+                <p>
+                    In addition to the University of Calabar and Federal
+                    University of Wukari, Nigeria, he has served as a visiting
+                    Professor at numerous universities, including Rivers State
+                    University of Technology, Port Harcourt.
+                </p>
+
+
+                <p>
+                    He has completed a number of renewable energy projects and
+                    worked as a consultant for USAID and UNIDO on the Cross
+                    River State Renewable Energy Master Plan Draft and the
+                    well-known Ebonyi State Solar Desalination of Okposi and
+                    Uburu lakes water project in Ebonyi State.
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESEARCH INTERESTS
+            ================================================== -->
+
+            <section class="about-research">
+
+
+                <div class="about-section-heading">
+
+                    <span>
+                        RESEARCH
+                    </span>
+
+                    <h2>
+                        Research Interest
+                    </h2>
+
+                </div>
+
+
+                <div class="research-tags">
+
+
+                    <span>
+
+                        <i class="fa-solid fa-square-check check-icon"></i>
+
+                        Food and Bioprocess Engineering
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="fa-solid fa-square-check check-icon"></i>
+
+                        Renewable Energy Application/Technologies
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="fa-solid fa-square-check check-icon"></i>
+
+                        Biomass/Biogas Technologies
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="fa-solid fa-square-check check-icon"></i>
+
+                        Structures and Environmental Control Engineering
+
+                    </span>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PRIZES AND GRANTS
+            ================================================== -->
+
+            <section class="about-achievements">
+
+
+                <div class="about-section-heading">
+
+                    <span>
+                        ACHIEVEMENTS
+                    </span>
+
+                    <h2>
+                        Prizes and Grants Academic/Professional Qualifications
+                        with Dates
+                    </h2>
+
+                </div>
+
+
+                <div class="achievement-list">
+
+
+                    <!-- ACHIEVEMENT 1 -->
+
+                    <div class="achievement-item">
+
+                        <i class="fa-solid fa-square-check check-icon"></i>
+
+                        <span class="achievement-content">
+
+                            <p>
+                                2022 TETFund National Research Grant.
+                            </p>
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- ACHIEVEMENT 2 -->
+
+                    <div class="achievement-item">
+
+                        <i class="fa-solid fa-square-check check-icon"></i>
+
+                        <span class="achievement-content">
+
+                            <p>
+                                Special Grant on Invention and Innovation,
+                                Federal Government of Nigeria, Presidential
+                                Standing Committee on Inventions and Innovation,
+                                Federal Government of Nigeria (2021).
+                            </p>
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- ACHIEVEMENT 3 -->
+
+                    <div class="achievement-item">
+
+                        <i class="fa-solid fa-square-check check-icon"></i>
+
+                        <span class="achievement-content">
+
+                            <p>
+                                Optimization of a passive solar energy poultry
+                                chick brooder (1998).
+                            </p>
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- ACHIEVEMENT 4 -->
+
+                    <div class="achievement-item">
+
+                        <i class="fa-solid fa-square-check check-icon"></i>
+
+                        <span class="achievement-content">
+
+                            <p>
+                                Solar poultry chick brooding (external),
+                                UNISPAR Grant (1999).
+                            </p>
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- ACHIEVEMENT 5 -->
+
+                    <div class="achievement-item">
+
+                        <i class="fa-solid fa-square-check check-icon"></i>
+
+                        <span class="achievement-content">
+
+                            <p>
+                                Solar Brooding, Excellent Contribution in
+                                Science and Technology, National Universities
+                                Fair (2005).
+                            </p>
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PROFESSIONAL INFORMATION BLOCKS
+            ================================================== -->
+
+            <section class="about-professional-information">
+
+
+                <!-- =============================================
+                     EDUCATIONAL INSTITUTIONS
+                ============================================== -->
+
+                <details class="about-accordion">
+
+                    <summary>
+
+                        <span>
+                            Educational Institutions Attended with Dates
+                        </span>
+
+                        <i class="fa-solid fa-angle-down"></i>
+
+                    </summary>
+
+
+                    <div class="about-accordion-content">
+
+
+                        <div class="education-list">
+
+
+                            <div class="education-item">
+
+                                <span class="education-title">
+
+                                    Professor, Agricultural and Bioresources
+                                    Engineering, University of Nigeria
+
+                                </span>
+
+                                <span class="education-year">
+                                    2008
+                                </span>
+
+                            </div>
+
+
+                            <div class="education-item">
+
+                                <span class="education-title">
+
+                                    Ph.D, Agricultural Engineering,
+                                    University of Nigeria, Nsukka, Nigeria
+
+                                </span>
+
+                                <span class="education-year">
+                                    2000
+                                </span>
+
+                            </div>
+
+
+                            <div class="education-item">
+
+                                <span class="education-title">
+
+                                    M.Eng., Agricultural Engineering,
+                                    University of Nigeria, Nsukka, Nigeria
+
+                                </span>
+
+                                <span class="education-year">
+                                    1993
+                                </span>
+
+                            </div>
+
+
+                            <div class="education-item">
+
+                                <span class="education-title">
+
+                                    B.Eng., University of Agriculture,
+                                    Makurdi, Benue State, Nigeria
+
+                                </span>
+
+                                <span class="education-year">
+                                    1989
+                                </span>
+
+                            </div>
+
+
+                            <div class="education-item">
+
+                                <span class="education-title">
+
+                                    West African School Certificate,
+                                    Boys High School, Ihi-tenansa,
+                                    Imo State
+
+                                </span>
+
+                                <span class="education-year">
+                                    1982
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </details>
+
+
+
+                <!-- =============================================
+                     EXPERIENCE IN RESEARCH
+                ============================================== -->
+
+                <details class="about-accordion">
+
+                    <summary>
+
+                        <span>
+                            Experience in Research, Development and
+                            Consultancy Services
+                        </span>
+
+                        <i class="fa-solid fa-angle-down"></i>
+
+                    </summary>
+
+
+                    <div class="about-accordion-content">
+
+
+                        <ol class="professional-number-list">
+
+
+                            <li>
+                                Development of a Stand-alone Solar Energy System
+                                for Sustainable Rural-Urban Poultry Production
+                                (2020).
+                            </li>
+
+
+                            <li>
+                                USAID National Consultant: Alternative Energy
+                                Policy Draft for Cross River State, Nigeria
+                                (2009).
+                            </li>
+
+
+                            <li>
+                                Pioneered research into the use of solar energy
+                                for poultry egg incubation (hatching of eggs),
+                                funded by the National Centre for Energy Research
+                                and Development, University of Nigeria, Nsukka
+                                (2009).
+                            </li>
+
+
+                            <li>
+                                Design and Construction of NCERD Commercial
+                                Solar Energy Crop Dryer (2008).
+                            </li>
+
+
+                            <li>
+                                UNIDO National Consultant: Ebonyi State Solar
+                                Energy Salt Extraction from Okposi and Uburu
+                                Lake Waters (2005).
+                            </li>
+
+
+                            <li>
+                                Design and Construction of Solar Desalination
+                                System for Salt Production in Ebonyi State for
+                                Cooperative Society (2005).
+                            </li>
+
+
+                            <li>
+                                Design and Construction of the NCERD Trombe
+                                Wall 1000 birds capacity solar poultry chick
+                                brooder (2004).
+                            </li>
+
+
+                            <li>
+                                Design and Construction of the Eziani
+                                Commercial Solar Energy Powered Trombe Wall
+                                Poultry Farm, Eziani, Nsukka L.G.A.,
+                                Enugu State (2002).
+                            </li>
+
+
+                            <li>
+                                Design, Construction and Performance Evaluation
+                                of 150 capacity Trombe Wall Poultry Chick
+                                Brooding System at NCERD, UNN, Ph.D Research
+                                Work (2000).
+                            </li>
+
+
+                            <li>
+                                Construction of Prototypes of Passive Solar
+                                Energy Poultry Chick Brooding Systems for
+                                Commercial Trials in Enugu State, Nigeria,
+                                funded by the United Nations Educational,
+                                Scientific and Cultural Organization (UNESCO)
+                                under the University Industrial–Science
+                                Partnership (UNISPAR) programme (2000).
+                            </li>
+
+
+                            <li>
+                                Pioneered research into the utilization of
+                                solar energy for poultry chick brooding,
+                                funded by the National Centre for Energy
+                                Research and Development and the University
+                                of Nigeria Senate Research Grant, University
+                                of Nigeria, Nsukka (1993).
+                            </li>
+
+
+                        </ol>
+
+
+                    </div>
+
+                </details>
+
+
+
+                <!-- =============================================
+                     MEMBERSHIP OF PROFESSIONAL BODIES
+                ============================================== -->
+
+                <details class="about-accordion">
+
+                    <summary>
+
+                        <span>
+                            Membership of Professional Bodies
+                        </span>
+
+                        <i class="fa-solid fa-angle-down"></i>
+
+                    </summary>
+
+
+                    <div class="about-accordion-content">
+
+
+                        <ol class="professional-letter-list">
+
+
+                            <li>
+                                Fellow, African Academics Network (FAAN)
+                                – 2023
+                            </li>
+
+
+                            <li>
+                                American Society of Agricultural and Biological
+                                Engineers, ASABE (1055250) – 2018
+                            </li>
+
+
+                            <li>
+                                Fellow, Renewable and Alternative Energy
+                                Society of Nigeria (RAESON) – 2017
+                            </li>
+
+
+                            <li>
+                                Council for Registered Engineering Regulation
+                                of Nigeria (COREN) – 2014
+                            </li>
+
+
+                            <li>
+                                American Society of Engineers (ASE) – 2013
+                            </li>
+
+
+                            <li>
+                                Asian-Pacific Chemical, Biological and
+                                Environmental Engineering (APCBEES) – 2012
+                            </li>
+
+
+                            <li>
+                                Renewable and Alternative Energy Society
+                                of Nigeria – 2013
+                            </li>
+
+
+                            <li>
+                                Fellow, Solar Energy Society of Nigeria
+                                (FSESN) – 2010
+                            </li>
+
+
+                            <li>
+                                International Solar Energy Society
+                                (ISES) – 2005
+                            </li>
+
+
+                            <li>
+                                Nigerian Society of Engineers
+                                (NSE) – 2000
+                            </li>
+
+
+                            <li>
+                                Solar Energy Society of Nigeria
+                                (SESN) – 1999
+                            </li>
+
+
+                            <li>
+                                Nigerian Institution of Agricultural
+                                Engineers (NIAE) – 1995
+                            </li>
+
+
+                        </ol>
+
+
+                    </div>
+
+                </details>
+
+
+
+                <!-- =================================================
+                     COMPLETE LIST OF PUBLICATIONS
+                ================================================== -->
+
+                <details class="about-accordion">
+
+                    <summary>
+
+                        <span>
+                            List of Publications
+                        </span>
+
+                        <i class="fa-solid fa-angle-down"></i>
+
+                    </summary>
+
+
+                    <div class="about-accordion-content publication-list">
+
+
+                        <!-- =================================================
+                             JOURNAL ARTICLES
+                        ================================================== -->
+
+                        <div class="publication-category">
+
+                            <h3>
+                                Journal Articles
+                            </h3>
+
+
+                            <ol class="publication-number-list">
+
+
+                                <li>
+                                    <strong>Nneoma Nkem Aneke</strong>,
+                                    Wilfred Ifeanyichukwu Okonkwo,
+                                    <strong>Sunday Loius Ezeoha, Gabriel
+                                    Ifeanyi Okafor and Cosmas Ngozichukwu
+                                    Anyanwu</strong> (2023).
+                                    <em>Optimization of Anthocyanin Extraction
+                                    from Roselle (Hibiscus sabdariffa)</em>,
+                                    Journal of Research and Innovation in Food
+                                    Science and Technology.
+                                    <a
+                                        href="https://doi.org/10.22101/jrifst.2022.350494.1380"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        DOI
+                                    </a>
+                                </li>
+
+
+                                <li>
+                                    Kolawole Emmanuel and
+                                    <strong>Okonkwo W. I.</strong> (2022).
+                                    <em>Impacts of Climate Change on Environment
+                                    and the Remedies</em>, International
+                                    Journal of Weather, Climate Change and
+                                    Conservation Research, 8 (2), pp. 1–9.
+                                </li>
+
+
+                                <li>
+                                    <strong>W. I. Okonkwo</strong>, C. J. Ohagwu,
+                                    O. Ojike, G. I. Ezenne, K. E. Olayinka and
+                                    A. U. Onyechi (2022).
+                                    <em>Socio-Economic Importance of Solar
+                                    Energy Application in Poultry Production
+                                    System</em>, Journal of Scientific Research
+                                    & Reports, 28 (11), pp. 112–126.
+                                </li>
+
+
+                                <li>
+                                    B. U. Ogbu, <strong>W. I. Okonkwo</strong>
+                                    and S. N. Ugwu (2021).
+                                    <em>Development of a Modified Environment
+                                    for Oyster Mushroom (Pleurotus ostreatus)
+                                    Production System for Rural Use in
+                                    Southeast Nigeria</em>, Nigerian Journal
+                                    of Technology, Vol. 40 No. 3,
+                                    pp. 518–525.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong>, C. O. Akubuo
+                                    and C. J. Ohagwu (2021).
+                                    <em>Design, Construction and Performance
+                                    Evaluation of a Trombe Wall Poultry
+                                    Day-Old Chick Brooding House</em>,
+                                    Journal of Food Processing and Technology,
+                                    Vol. 12, Issue 9, No. 908, pp. 1–7.
+                                </li>
+
+
+                                <li>
+                                    Ugwu Kenneth Chikwado and
+                                    <strong>Okonkwo Wilfred Ifeanyi</strong>
+                                    and Okafor Gabriel Ifeanyi (2020).
+                                    <em>Determination of Cashew Juice Species'
+                                    Shelf-Life at Natural Storage Using
+                                    Multivariate Regression Model</em>,
+                                    Journal of Engineering Technology, Vol. 9,
+                                    Issue 2, pp. 106–120.
+                                </li>
+
+
+                                <li>
+                                    Kenneth Chikwado Ugwu and
+                                    <strong>Wilfred Ifeanyi Okonkwo</strong>
+                                    (2020).
+                                    <em>A Survey Questionnaire of Cashew Nuts
+                                    Processing Methods in Enugu State</em>,
+                                    AgricEngInt: CIGR Journal, Vol. 22,
+                                    No. 4, pp. 134–140.
+                                </li>
+
+
+                                <li>
+                                    Ugwu Kenneth Chikwado and
+                                    <strong>Okonkwo Wilfred Ifeanyi</strong>
+                                    (2020).
+                                    <em>Determination of Cashew Fruit Juice
+                                    Quality Retention Using Factorial Design
+                                    Method under Non-Refrigerated Storage</em>,
+                                    International Journal of Emerging
+                                    Technologies in Engineering Research
+                                    (IJETER), Vol. 8, Issue 11,
+                                    November 2020.
+                                </li>
+
+
+                                <li>
+                                    Ugwu K.C. and
+                                    <strong>Okonkwo W.I.</strong> (2020).
+                                    <em>The Effect of Deteriorative Factors on
+                                    the Ascorbic Acid Level of Cashew Fruit
+                                    Juice During Non-Refrigerated Storage</em>,
+                                    Discovery.
+                                </li>
+
+
+                                <li>
+                                    S. N. Ugwu, O. Ojike,
+                                    <strong>W. I. Okonkwo</strong>, E. Okafor,
+                                    B. O. Ugwuishiwu and E. A. Echiegu (2020).
+                                    <em>Evaluation Studies of a Mixed Mode Solar
+                                    Kiln with Phase Change Material and
+                                    Distributed-Type Solar Kiln</em>,
+                                    Case Studies in Thermal Engineering.
+                                </li>
+
+
+                                <li>
+                                    S. A. Ngabea,
+                                    <strong>W. I. Okonkwo</strong>,
+                                    E. A. Echiegu, G. I. Okafor and P. I. Akubor
+                                    (2020).
+                                    <em>Optimization of Temperature, Packaging
+                                    Materials and Time on the Proximate
+                                    Compositions of Bambara Nut Flour</em>,
+                                    Asian Journal of Plant Science.
+                                </li>
+
+
+                                <li>
+                                    <strong>Asoiro, F.U., Okonkwo, W.I.</strong>
+                                    and Nweze, N.O. (2019).
+                                    <em>Studies on the Growth Rate, Oil Yield
+                                    and Properties of Some Indigenous Fresh
+                                    Water Microalgae Species</em>, Journal of
+                                    Environmental Science and Technology,
+                                    12 (4), pp. 164–176.
+                                    <a
+                                        href="https://scialert.net/archivedetails.php?issn=1994-7887&issueno=61"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Article
+                                    </a>
+                                </li>
+
+
+                                <li>
+                                    F. U. Asoiro,
+                                    <strong>W. I. Okonkwo</strong>,
+                                    C. O. Akubuo, N. O. Nweze and
+                                    C. N. Anyanwu (2019).
+                                    <em>Effects of Temperature and Time on Oil
+                                    Extraction from Some Nigerian Indigenous
+                                    Fresh Water Microalgae Species</em>,
+                                    CIGR Journal, Vol. 21 (2), July 2019,
+                                    pp. 1–12.
+                                </li>
+
+
+                                <li>
+                                    Ohagwu C.J., Okonkwo W.I., Akubuo C.O.,
+                                    Mbah G.C.E. and Njoku H.O. (2019).
+                                    <em>Stability of Analysis of Trombe Wall
+                                    Solar Chick Brooder</em>, Inmateh:
+                                    Agricultural Engineering.
+                                </li>
+
+
+                                <li>
+                                    K. C. Ugwu, C. C. Mbajiorgu,
+                                    <strong>W. I. Okonkwo</strong> and
+                                    A. O. Ani (2018).
+                                    <em>Design, Fabrication and Performance
+                                    Evaluation of a Portable Hand-Held
+                                    Refractometer</em>, Nigerian Journal of
+                                    Technology (NIJOTECH), Vol. 37 No. 2,
+                                    pp. 537–542.
+                                </li>
+
+
+                                <li>
+                                    Kwino D. I.,
+                                    <strong>Okonkwo W. I.</strong> and
+                                    Obi F. O. (2017).
+                                    <em>Effects of Roasting on the Physical
+                                    Properties of Monodora myristica
+                                    (African Nutmeg)</em>, International Food
+                                    Research Journal 24 (3), pp. 1148–1155,
+                                    June 2017.
+                                </li>
+
+
+                                <li>
+                                    Okey Francis Obi, Jeremiah C. Ezema and
+                                    <strong>Wilfred I. Okonkwo</strong> (2017).
+                                    <em>Energy Performance of Biomass Cookstoves
+                                    Using Fuel Briquettes</em>, Journal of
+                                    Biofuels.
+                                    <a
+                                        href="http://dx.doi.org/10.1080/17597269.2017.1374769"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        DOI
+                                    </a>
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I. and Uke O. S.</strong>
+                                    (2016).
+                                    <em>Comparative Effect of Tilt Angles of
+                                    a Double and Single Tilted Glazed Solar
+                                    Desalination Systems</em>, African Journal
+                                    of Renewable and Alternative Energy,
+                                    Vol. 1 No. 2, pp. 46–53.
+                                </li>
+
+
+                                <li>
+                                    Uke O. S. and
+                                    <strong>Okonkwo W. I.</strong> (2016).
+                                    <em>Development and Performance Evaluation
+                                    of a Pyramidal Passive Solar Desalination
+                                    System</em>, African Journal of Renewable
+                                    and Alternative Energy, Vol. 1 No. 1,
+                                    pp. 90–97.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> (2016).
+                                    <em>Nigeria Should Embark on Climate Smart
+                                    Agriculture Now</em>, The Nigerian
+                                    Guardian, p. 51, 10th January 2016.
+                                </li>
+
+
+                                <li>
+                                    Owo I. P.,
+                                    <strong>Okonkwo W. I.</strong> and
+                                    Nwoke O. O. (2015).
+                                    <em>Development and Testing of a Prototype
+                                    Parabolic Trough Solar Collector for Steam
+                                    Generation at Nsukka, South East,
+                                    Nigeria.</em>
+                                </li>
+
+
+                                <li>
+                                    Ngabea Shianya,
+                                    <strong>Wilfred Ifeanyi Okonkwo</strong>
+                                    and Jacob Liberty (2015).
+                                    <em>Design, Fabrication and Performance
+                                    Evaluation of a Magnetic Sieve Grading
+                                    Machine</em>, 2(8), pp. 65–77.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong>,
+                                    E. A. Echiegu, J. N. Ogbuisi and
+                                    T. J. Liberty (2015).
+                                    <em>Characterization of a Fibre Reinforced
+                                    Concentrated Solar Cooker</em>,
+                                    International Journal of Innovation and
+                                    Applied Studies, pp. 1058–1064.
+                                </li>
+
+
+                                <li>
+                                    Chukwuma E. C. and
+                                    <strong>Okonkwo W. I.</strong> (2013).
+                                    <em>Kinetic Assessment of Biogas Production
+                                    of Co-Digestion of Cattle Paunch Manure
+                                    With Cow Dung</em>, Journal of Agricultural
+                                    Engineering and Technology (JAET),
+                                    Vol. 21 No. 1, June 2013.
+                                </li>
+
+
+                                <li>
+                                    Liberty J. T.,
+                                    <strong>Okonkwo W. I.</strong> and
+                                    Echiegu E. A. (2013).
+                                    <em>Evaporative Cooling: A Postharvest
+                                    Technology for Fruits and Vegetables
+                                    Preservation</em>, International Journal
+                                    of Scientific and Engineering Research,
+                                    Vol. 4, Issue 8, August 2013.
+                                </li>
+
+
+                                <li>
+                                    Obi O. F., Akubuo C. O. and
+                                    <strong>Okonkwo W. I.</strong> (2013).
+                                    <em>Development of an Appropriate
+                                    Briquetting Machine for Use in Rural
+                                    Communities</em>, International Journal
+                                    of Engineering and Advanced Technology
+                                    (IJEAT), Vol. 2(4), pp. 2249–2258.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong>,
+                                    Uzodinma E. O. and Ojike O. (2012).
+                                    <em>Performance Evaluation of a Hybrid
+                                    Solar Dryer Using Drying Characteristics
+                                    of COD Fish (Gadus morhua)</em>, Nigerian
+                                    Journal of Solar Energy, Vol. 23,
+                                    pp. 17–22.
+                                </li>
+
+
+                                <li>
+                                    P. N. Nwosu, O. U. Oparaku,
+                                    <strong>W. I. Okonkwo</strong>,
+                                    G. O. Unachukwu and D. Agbiogwu (2011).
+                                    <em>Experimental Study of a Thermosyphon
+                                    Solar Water Heater Coupled to a
+                                    Fibre-Reinforced Plastic (FRP) Storage
+                                    Tank</em>, Applied Solar Energy,
+                                    Vol. 47 No. 3, pp. 207–212.
+                                </li>
+
+
+                                <li>
+                                    Nwoke O. O., Ojike O., Onwualu A. P. and
+                                    <strong>Okonkwo W. I.</strong> (2011).
+                                    <em>Development and Evaluation of a Solar
+                                    Powered Rice Packaging Machine</em>,
+                                    Agricultural Engineering International:
+                                    CIGR Journal, Vol. 13 No. 1.
+                                </li>
+
+
+                                <li>
+                                    Ojike O., Nwoke O. O. and
+                                    <strong>Okonkwo W. I.</strong> (2011).
+                                    <em>Influence of Different Solar Drying
+                                    Systems on the Vitamin Content of Pawpaw</em>,
+                                    Austrian Journal of Agricultural
+                                    Engineering, pp. 8–11.
+                                </li>
+
+
+                                <li>
+                                    Ikejiofor M. C. and
+                                    <strong>Okonkwo W. I.</strong> (2010).
+                                    <em>Design and Development of an Active
+                                    Solar Dryer with Adjustable Air Flow Rates
+                                    for Agricultural Products</em>, Journal
+                                    of Agricultural Engineering Technology
+                                    (JAET), Vol. 18 No. 2, pp. 70–76.
+                                </li>
+
+
+                                <li>
+                                    Ojike O., Nwoke O. O. and
+                                    <strong>W. I. Okonkwo</strong> (2010).
+                                    <em>Comparative Evaluation of Passive Solar
+                                    Dryers Using the Drying Rate Constants of
+                                    Yellow Pepper and Okro as a Case Study</em>,
+                                    Nigerian Journal of Solar Energy,
+                                    Vol. 21 (1), pp. 169–172.
+                                </li>
+
+
+                                <li>
+                                    Ojike O., Nwoke O. O. and
+                                    <strong>W. I. Okonkwo</strong> (2010).
+                                    <em>Comparative Evaluation of Passive Solar
+                                    Dryers Using the Drying Rate Constants of
+                                    Tomato as a Case Study</em>, International
+                                    Journal of Physical Science, Vol. 5 (1),
+                                    pp. 34–40.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong>,
+                                    O. U. Oparaku and P. N. Nwosu (2010).
+                                    <em>Mathematical Modeling of a Trombe Wall
+                                    System for Poultry Brooding Application
+                                    in the Tropics (with Sub-Saharan Climate)</em>,
+                                    Solar Energy.
+                                </li>
+
+
+                                <li>
+                                    Agunwamba J. C., Utsev J. T. and
+                                    <strong>Okonkwo W. I.</strong> (2009).
+                                    <em>Solar Enhanced Wastewater Treatment
+                                    in Waste Stabilization Ponds</em>, Water
+                                    Environment Research, Vol. 81 No. 5,
+                                    pp. 540–545.
+                                </li>
+
+
+                                <li>
+                                    Nwosu P. N. and
+                                    <strong>Okonkwo W. I.</strong> (2008).
+                                    <em>Effect of an Absorptive Coating on Solar
+                                    Energy Storage in a Trombe Wall System</em>,
+                                    Energy and Buildings, Vol. 40 (3),
+                                    pp. 371–374.
+                                </li>
+
+
+                                <li>
+                                    Anyawu C. N. and
+                                    <strong>Okonkwo W. I.</strong> (2008).
+                                    <em>Experimental Determination of the
+                                    Drying Rate of Yellow Pepper
+                                    (Capsicum annum)</em>, Nigerian Journal
+                                    of Solar Energy, Vol. 19 No. 1,
+                                    pp. 18–24.
+                                </li>
+
+
+                                <li>
+                                    Nwoke O. O.,
+                                    <strong>Okonkwo W. I.</strong> and
+                                    O. U. Oparaku (2008).
+                                    <em>Solar Energy Use in Nigeria:
+                                    Constraints and Possible Solutions</em>,
+                                    Nigerian Journal of Solar Energy,
+                                    pp. 90–93.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> and
+                                    Nwoke O. O. (2008).
+                                    <em>Family Size Green House Solar Energy
+                                    Crop Dryer</em>, Nigerian Journal of
+                                    Solar Energy, Vol. 19 No. 2, pp. 6–10.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> and
+                                    C. O. Akubuo (2007).
+                                    <em>Trombe Wall System for Poultry
+                                    Brooding</em>, International Journal of
+                                    Poultry Science, 6 (2), pp. 125–130.
+                                </li>
+
+
+                                <li>
+                                    Falayi E. O., Rabiu A. B. and
+                                    <strong>Okonkwo W. I.</strong> (2006).
+                                    <em>Relationship Between Global Solar
+                                    Radiation and Surface Temperature in the
+                                    Tropics</em>, Journal of Research in
+                                    Physical Sciences, Vol. 2, pp. 59–63.
+                                </li>
+
+
+                                <li>
+                                    Oparaku N. F. and
+                                    <strong>Okonkwo W. I.</strong> (2006).
+                                    <em>Comparative Studies of Kerosene Stove
+                                    and Sawdust Stoves</em>, Nigerian Journal
+                                    of Solar Energy, Vol. 16, pp. 54–60.
+                                </li>
+
+
+                                <li>
+                                    Nwoke O. O. and
+                                    <strong>Okonkwo W. I.</strong> (2006).
+                                    <em>Biogas Technology: A Sustainable Energy
+                                    and Waste Management Option for Rural
+                                    Development in Nigeria</em>, Nigerian
+                                    Journal of Solar Energy, Vol. 16,
+                                    pp. 195–199.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> and
+                                    E. C. Okoye (2005).
+                                    <em>Integrated Pebble Bed Passive Solar
+                                    Energy Storage Crop Dryer</em>, Nigerian
+                                    Journal of Technology, Vol. 2,
+                                    pp. 67–73.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> (2004).
+                                    <em>Thermosyphon Solar Energy Egg Incubator
+                                    for Tropical Countries</em>, Journal of
+                                    Agricultural Engineering and Technology,
+                                    Vol. 12.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> and
+                                    S. N. Ukachukwu (2004).
+                                    <em>Effects of Passive Solar, Electric and
+                                    Kerosene Brooding Systems on the Performance
+                                    of Broiler Chickens</em>, Journal of
+                                    Sustainable Agriculture and the Environment,
+                                    Vol. 6 No. 1, pp. 1–6.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> and
+                                    A. P. Onwualu (2002).
+                                    <em>Design, Construction and Evaluation of
+                                    a Pyranometer for Solar Radiation
+                                    Measurement</em>, Journal of Pure and
+                                    Sciences, Vol. 5 No. 2, pp. 234–340.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> (2003).
+                                    <em>Attainment of Sustainable Electricity
+                                    Supply in Nigeria: The Photovoltaic (PV)
+                                    Option</em>, Journal of Science and
+                                    Technology Research, pp. 74–79.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> and
+                                    C. O. Akubuo (2001).
+                                    <em>Thermal Analysis and Evaluation of Heat
+                                    Requirement of a Passive Solar Energy
+                                    Poultry Chick Brooder</em>, Nigerian
+                                    Journal of Renewable Energy, Vol. 9,
+                                    Nos. 1 & 2, pp. 83–87.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> and
+                                    A. P. Onwualu (2000).
+                                    <em>Utilization of Biogas Fuel in Internal
+                                    Combustion Engine System</em>, Nigerian
+                                    Journal of Renewable Energy, Vol. 8,
+                                    Nos. 1 & 2, pp. 83–88.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong>,
+                                    C. O. Akubuo and P. Mageswaran (1999).
+                                    <em>Development and Evaluation of a
+                                    Concentrating Solar Cooker under Nsukka
+                                    Climate</em>, Journal of Agricultural
+                                    Engineering and Technology, Vol. 7,
+                                    pp. 29–35.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> (1998).
+                                    <em>Energy for Sustainable Environment and
+                                    Economic Growth</em>, Bullion, Publication
+                                    of Central Bank of Nigeria, Oct./Dec.
+                                    Edition 1998, Vol. 22 No. 4, pp. 44–49.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong>,
+                                    O. C. Iloeje, E. A. Echiegu and
+                                    C. O. Akubuo (1993).
+                                    <em>Performance Evaluation of a Medium
+                                    Scale Passive Solar Energy Heated Chick
+                                    Brooder</em>, Nigerian Journal of Solar
+                                    Energy, Vol. 12, pp. 51–60.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong>,
+                                    U. G. N. Anazodo, E. A. Echiegu,
+                                    O. C. Iloeje and C. O. Akubuo (1992).
+                                    <em>The Passive Solar Energy Chick Brooder:
+                                    Further Improvement and Preliminary
+                                    Testing</em>, Nigerian Journal of Solar
+                                    Energy, Vol. 11, pp. 32–40.
+                                </li>
+
+
+                            </ol>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             CONFERENCE PAPERS
+                        ================================================== -->
+
+                        <div class="publication-category">
+
+                            <h3>
+                                Conference Papers Refereed and Published
+                            </h3>
+
+
+                            <ol
+                                class="publication-number-list"
+                                start="55"
+                            >
+
+
+                                <li>
+                                    <strong>W. I. Okonkwo and C. O. Akubuo
+                                    (2018).</strong>
+                                    <em>Design, Construction and Performance
+                                    Evaluation of a Trombe Wall Poultry
+                                    Brooding House</em>, paper presented at
+                                    Annual Meeting of the American Society of
+                                    Agricultural and Biological Engineers
+                                    (ASABE), Cobo, Detroit, Michigan, U.S.A.,
+                                    29th July–1st August 2018.
+                                </li>
+
+
+                                <li>
+                                    <strong>W. I. Okonkwo (2018).</strong>
+                                    <em>Renewable Energy Application: An
+                                    Alternative Towards Sustainable Poultry
+                                    Production</em>, paper presented at the
+                                    1st International Engineering Conference,
+                                    Faculty of Engineering, University of
+                                    Nigeria, Nsukka, 25–28 April 2018.
+                                </li>
+
+
+                                <li>
+                                    <strong>W. I. Okonkwo (2017).</strong>
+                                    <em>Renewable Energy Applications and
+                                    Utilization for Economic Recovery</em>,
+                                    Proceedings of the 18th Conference and
+                                    38th Annual Meeting of the Nigerian
+                                    Institute of Agricultural Engineers
+                                    (NIAE), Umudike, pp. iv–xvii.
+                                </li>
+
+
+                                <li>
+                                    <strong>W. I. Okonwo (2016).</strong>
+                                    <em>Agricultural Reform: A Panacea for
+                                    Diversification of Nigeria Economy</em>,
+                                    A Pre-Convocation Lecture in Commemoration
+                                    of the Kaduna Polytechnic 32nd Combined
+                                    and Diamond Jubilee Ceremonies, Kaduna
+                                    Polytechnic, Kaduna, 22nd July 2016.
+                                </li>
+
+
+                                <li>
+                                    Nwoke, O.A.,
+                                    <strong>W. I. Okonkwo</strong>,
+                                    C.C. Anyadike and E.C. Chukwuma (2013).
+                                    <em>Leachate Management and Treatment in
+                                    Municipal Solid Waste Landfill</em>,
+                                    Proceedings of Nigerian Association of
+                                    Hydrological Sciences (NAHS), Vol. 5,
+                                    pp. 104–118.
+                                </li>
+
+
+                                <li>
+                                    O.F. Obi, J.N. Nwakaire,
+                                    <strong>W. I. Okonkwo</strong>,
+                                    B.O. Ugwuishiwu and C.C. Anyadike (2012).
+                                    <em>Repositioning Agricultural Development
+                                    in Africa through Appropriate Technological
+                                    Transfer</em>, Proceedings of Nigerian
+                                    Institution of Agricultural Engineers
+                                    (NIAE), Vol. 33, pp. 556–566.
+                                </li>
+
+
+                                <li>
+                                    Nwoke, O.A.,
+                                    <strong>Okonkwo, W.I.</strong>,
+                                    Ugwuishiwu, B.O., Chukwuma, E.C.,
+                                    Ezenne, G.I. and Ohagwu, C.J. (2013).
+                                    <em>Technicalities of Solar Photovoltaic
+                                    Crop Irrigation Water Pumping</em>,
+                                    Proceedings of Nigerian Institution of
+                                    Agricultural Engineers (NIAE), Vol. 34,
+                                    pp. 292–300.
+                                </li>
+
+
+                                <li>
+                                    Nwaoga J. A., Okonkwo W. I. and
+                                    G. O. Unachukwu (2011).
+                                    <em>Exploring the Photo Sensitivities of
+                                    Mimosa Pudica for Solar Cell Production</em>,
+                                    paper presented at the 26th European
+                                    Photovoltaic Solar Energy Conference and
+                                    Exhibition, Hamburg, Germany,
+                                    5–9 September 2011, pp. 406–410.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I. (2010).</strong>
+                                    <em>Photovoltaic Technology in Agricultural
+                                    Production: Nigeria</em>, Workshop
+                                    Proceedings, ISTIC-TWAS Workshop on
+                                    Innovation in Science and Technology for
+                                    Developing Countries in the South,
+                                    Penang, Malaysia, 6–7 September 2010,
+                                    pp. 171–175.
+                                </li>
+
+
+                                <li>
+                                    Ojike O., Nwoko O. O. and
+                                    <strong>Okonkwo W. I. (2010).</strong>
+                                    <em>Comparative Evaluation of Passive Solar
+                                    Dryers Using the Drying Rate Constants of
+                                    Tomato as a Case Study</em>, Proceedings
+                                    First World Congress on Research and
+                                    Development, University of Port Harcourt,
+                                    Rivers State, Nigeria, 9–12 February
+                                    2010, pp. 34–40.
+                                </li>
+
+
+                                <li>
+                                    Ojike O., Nwoke O. O. and
+                                    <strong>Okonkwo W. I. (2009).</strong>
+                                    <em>Comparative Evaluation of Drying
+                                    Efficiency of Passive Solar Dryers Using
+                                    the Drying Rate Constants of Yellow Pepper
+                                    and Okro as a Case Study</em>,
+                                    Proceedings Solar Energy Society of
+                                    Nigeria, Makurdi, 2–5 December 2009.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong>,
+                                    Oparaku O. U. and Chukwuezie O. C. (2009).
+                                    <em>Design, Construction and Characterization
+                                    of a Photovoltaic Powered Poultry Egg
+                                    Incubator</em>, Proceedings, Engineering
+                                    Congress on Alternative Energy
+                                    Applications, 2–6 November 2009,
+                                    Kuwait.
+                                </li>
+
+
+                                <li>
+                                    Nwagugu N. I. and
+                                    <strong>Okonkwo W. I. (2009).</strong>
+                                    <em>Experimental Determination of
+                                    Compressive Strength of Sweet Cassava
+                                    (Manihot Esculanta)</em>, Proceedings of
+                                    3rd West African Society for Agricultural
+                                    Engineering and 9th Nigeria Institution
+                                    of Agricultural Engineers International
+                                    Conference, Obafemi Awolowo University,
+                                    Ile-Ife, Nigeria, 25–29 January 2009,
+                                    pp. 192–196.
+                                </li>
+
+
+                                <li>
+                                    Michael Chendo,
+                                    <strong>Okonkwo W. I.</strong> and
+                                    A. B. Rabiu (2008).
+                                    <em>Performance Characteristics of a Salt
+                                    Recovery Solar Desalination Plant</em>,
+                                    Proceedings, World Renewable Energy
+                                    Congress-X, Glasgow, Scotland,
+                                    19–25 August 2008, pp. 1849–1852.
+                                </li>
+
+
+                                <li>
+                                    G. I. Okonkwo and W. I. Okonkwo (2008).
+                                    <em>Applications of Solar Energy Water
+                                    Heating in Agriculture</em>, Proceedings,
+                                    1st Annual Nigerian Institute of
+                                    Agricultural Engineers South-East
+                                    Regional Conference, Nnamdi Azikiwe
+                                    University, Awka, Anambra State,
+                                    August 2008, pp. 152–161.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> and
+                                    C. J. Ohagwu (2008).
+                                    <em>Design, Construction and Performance
+                                    Evaluation of a Batch Type Biogas Digester
+                                    in Nsukka, Nigeria</em>, Conference
+                                    Proceedings of the 6th International
+                                    Conference and 29th Annual General Meeting
+                                    of the Nigerian Institute of Agricultural
+                                    Engineers, Vol. 29, pp. 445–451,
+                                    28 January–1 February 2008.
+                                </li>
+
+
+                                <li>
+                                    Anyawu C. N., N. O. Nwoko,
+                                    <strong>Okonkwo W. I.</strong>,
+                                    S. I. Eze and O. U. Oparaku (2007).
+                                    <em>Design, Construction and Performance
+                                    Testing of an Active Solar Crop Dryer</em>,
+                                    Proceedings of the 37th Annual Conference
+                                    of the Nigerian Society of Chemical
+                                    Engineers, Enugu, 22–24 November 2007,
+                                    pp. 1–9.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong>,
+                                    O. O. Nwoke, J. T. Thomas and M. A. Chendo
+                                    (2007).
+                                    <em>Techno-Economic Impact of Solar
+                                    Crystallization of Salt Production</em>,
+                                    Proceedings of International Workshop on
+                                    Renewable Energy for Sustainable
+                                    Development in Africa (IWRESDA),
+                                    NCERD, University of Nigeria, Nsukka,
+                                    30 July–1 August 2007, pp. 116–124.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I. (2007).</strong>
+                                    <em>Solar Heating for Sustainable Poultry
+                                    Production</em>, Proceedings of
+                                    International Workshop on Renewable Energy
+                                    for Sustainable Development in Africa
+                                    (IWRESDA), NCERD, University of Nigeria,
+                                    Nsukka, 30 July–1 August 2007,
+                                    pp. 125–130.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I. (2005).</strong>
+                                    <em>Passive Solar Heating for Poultry Chick
+                                    Brooding in Nigeria</em>, workshop paper,
+                                    Physics for Renewable Energy, The Abdus
+                                    Salam International Centre for Theoretical
+                                    Physics, Trieste, Italy,
+                                    17–29 October 2005.
+                                </li>
+
+
+                                <li>
+                                    Onuoha N. R. and
+                                    <strong>Okonkwo W. I. (2005).</strong>
+                                    <em>Renewable Energy for Sustainable Rural
+                                    Livelihood in Nigeria</em>, Proceedings
+                                    of the Nigerian Institution of Agricultural
+                                    Engineers, Yenagoa, 12–15 December 2005.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> and
+                                    C. N. Anyawu (2004).
+                                    <em>NCERD Basin-Type Passive Solar Still:
+                                    Design, Construction and Performance
+                                    Evaluation</em>, Proceedings of the 5th
+                                    International Conference and 26th Annual
+                                    General Meeting of the Nigerian Institute
+                                    of Agricultural Engineers, Vol. 26,
+                                    pp. 445–451, 2–6 December 2004.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I.</strong> and
+                                    Agunwamba J. C. (1997).
+                                    <em>Socio-Economic Impact of Solar Energy
+                                    Brooding System</em>, Conference Proceedings
+                                    of the 3rd International Conference on
+                                    Power Systems Operation and Planning,
+                                    Abidjan, Côte d'Ivoire,
+                                    13–17 January 1997.
+                                </li>
+
+
+                            </ol>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             BOOKS / CHAPTERS
+                        ================================================== -->
+
+                        <div class="publication-category">
+
+                            <h3>
+                                Books / Chapters in a Book
+                            </h3>
+
+
+                            <ol
+                                class="publication-number-list"
+                                start="78"
+                            >
+
+
+                                <li>
+                                    <strong>Okonkwo W. I. and Ogbuisi J. N.
+                                    (2019).</strong>
+                                    <em>Reinforced Fibre Plastic Solar Energy
+                                    Cooker</em>, Lambert Academic Publishing,
+                                    Germany.
+                                </li>
+
+
+                                <li>
+                                    <strong>Okonkwo W. I. (1998).</strong>
+                                    <em>Solar Chick Brooding, Rural Renewable
+                                    Energy Needs and Five Supply Technologies</em>,
+                                    Energy Commission of Nigeria, Federal
+                                    Ministry of Science and Technology,
+                                    pp. 61–71.
+                                </li>
+
+
+                            </ol>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             TECHNICAL REPORTS
+                        ================================================== -->
+
+                        <div class="publication-category">
+
+                            <h3>
+                                Technical Reports
+                            </h3>
+
+
+                            <ol
+                                class="publication-number-list"
+                                start="80"
+                            >
+
+
+                                <li>
+                                    <strong>Final Draft, Alternative Energy
+                                    Policy for Cross River State.</strong>
+                                    Report submitted to the United States
+                                    Agency for International Development
+                                    (USAID), 2009.
+                                </li>
+
+
+                                <li>
+                                    <strong>Social and Techno-Economic Aspect
+                                    of Introducing Solar Crystallization
+                                    Process to the Salt Manufacturing
+                                    Communities of Uburu and Okposi Salt Lake,
+                                    Ebonyi State, Nigeria.</strong>
+                                    Report submitted to the United Nations
+                                    Industrial Development Organization
+                                    (UNIDO), 2005.
+                                </li>
+
+
+                                <li>
+                                    <strong>Solar Energy Chick Brooding for
+                                    Commercial Trials in Enugu State.</strong>
+                                    Report submitted to the United Nations
+                                    Educational, Scientific and Cultural
+                                    Organization (UNESCO), 1999.
+                                </li>
+
+
+                            </ol>
+
+                        </div>
+
+
+                    </div>
+
+                </details>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+</section>
+
+
+{% endblock %}

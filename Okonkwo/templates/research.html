@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Research | Prof. Wilfred I. Okonkwo Research Lab
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =========================================================
+     RESEARCH PAGE HEADER
+========================================================= -->
+
+<section class="page-header">
+
+    <div class="container">
+
+        <p class="eyebrow">
+            RESEARCH
+        </p>
+
+        <h1>
+            Research & Academic Work
+        </h1>
+
+        <p>
+            Explore the research activities,
+            facilities, services and academic work
+            of the laboratory.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESEARCH INTRODUCTION
+========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="research-introduction">
+
+
+            <!-- =================================================
+                 RESEARCH PHOTO
+            ================================================== -->
+
+            <div class="research-introduction-image">
+
+                <img
+                    src="{% static 'images/research.jpg' %}"
+                    alt="Prof. Wilfred I. Okonkwo Research Laboratory"
+                >
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ABOUT THE LAB
+            ================================================== -->
+
+            <div class="research-introduction-content">
+
+                <p class="eyebrow">
+                    ABOUT
+                </p>
+
+                <h2>
+                    About the Lab
+                </h2>
+
+                <div class="research-line"></div>
+
+
+                <p>
+                    Our laboratory covers a wide range of equipment,
+                    facilities and services for scientific research,
+                    investigation, experimentation, engineering design,
+                    development and product testing. Among these include
+                    solar energy brooding systems, egg incubators, crop
+                    and manure dryers for sustainable poultry production,
+                    potable solar water heating system, solar cookers,
+                    biomaterials handling, transportation, and storage,
+                    cloud computing of things peak, treatment and solar
+                    desalination of seawaters, climate and environmental
+                    engineering services, Food and bioprocessing of fruits
+                    and vegetable examplezobo drink making, production
+                    Tiger nut solid milk, designing and fabrication of
+                    postharvest structures. We also undertake proximate
+                    and nutrients analysis of biomaterials.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CONSULTANCY SERVICES
+========================================================= -->
+
+<section class="section section-light">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <p class="eyebrow">
+                SERVICES
+            </p>
+
+            <h2>
+                Laboratory Services
+            </h2>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             MEDIUM CONSULTANCY ACCORDION
+        ====================================================== -->
+
+        <div class="research-accordion">
+
+
+            <button
+                type="button"
+                class="research-accordion-button"
+                aria-expanded="false"
+                aria-controls="consultancy-content"
+            >
+
+                <span class="research-accordion-title">
+                    Consultancy Services
+                </span>
+
+                <span
+                    class="research-accordion-icon"
+                    aria-hidden="true"
+                >
+                    +
+                </span>
+
+            </button>
+
+
+
+            <div
+                id="consultancy-content"
+                class="research-accordion-content"
+                hidden
+            >
+
+                <p>
+                    Our consultancy unit undertakes and gives
+                    professional and expert advice to companies,
+                    governments, NGOs, on renewable energy-related
+                    projects, remote sensing and monitoring,
+                    environment, climate, farm mechanization,
+                    food engineering and technology.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ACCORDION JAVASCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const accordionButton =
+            document.querySelector(
+                ".research-accordion-button"
+            );
+
+        const accordionContent =
+            document.getElementById(
+                "consultancy-content"
+            );
+
+        const accordionIcon =
+            document.querySelector(
+                ".research-accordion-icon"
+            );
+
+
+        if (
+            accordionButton &&
+            accordionContent &&
+            accordionIcon
+        ) {
+
+            accordionButton.addEventListener(
+                "click",
+                function () {
+
+                    const isExpanded =
+                        accordionButton.getAttribute(
+                            "aria-expanded"
+                        ) === "true";
+
+
+                    accordionButton.setAttribute(
+                        "aria-expanded",
+                        String(!isExpanded)
+                    );
+
+
+                    if (isExpanded) {
+
+                        accordionContent.hidden = true;
+
+                        accordionIcon.textContent = "+";
+
+                    } else {
+
+                        accordionContent.hidden = false;
+
+                        accordionIcon.textContent = "−";
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+{% endblock %}

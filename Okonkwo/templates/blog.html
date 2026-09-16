@@ -1,0 +1,335 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Blog | Prof. Wilfred I. Okonkwo
+{% endblock %}
+
+{% block content %}
+
+<!-- =========================================================
+     PAGE HEADER
+========================================================= -->
+
+<div class="page-header">
+
+
+<div class="overlay">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <h1>
+                    My Blog Section
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- =========================================================
+     BLOG SECTION
+========================================================= -->
+
+<div class="container">
+
+```
+<div class="row">
+
+
+    <!-- =================================================
+         BLOG BODY
+    ================================================== -->
+
+    <div class="col-md-8 blog-body">
+
+
+        {% if blog_posts %}
+
+            <!-- =================================================
+                 TWO COLUMN BLOG GRID
+            ================================================== -->
+
+            <div class="blog-grid">
+
+                {% for post in blog_posts %}
+
+                    <!-- =================================================
+                         BLOG POST
+                    ================================================== -->
+
+                    <article class="blog-post">
+
+
+                        <!-- HEADER PICTURE -->
+
+                        {% if post.header_picture %}
+
+                            <div class="post-img">
+
+                                <a href="{% url 'blog_detail' post.pk %}">
+
+                                    <img
+                                        src="{{ post.header_picture.url }}"
+                                        class="img-responsive"
+                                        alt="{{ post.post_title }}"
+                                    >
+
+                                </a>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- POST CONTENT -->
+
+                        <div class="blog-post-content">
+
+
+                            <!-- POST TITLE -->
+
+                            <h2 class="post-title">
+
+                                <a href="{% url 'blog_detail' post.pk %}">
+
+                                    {{ post.post_title }}
+
+                                </a>
+
+                            </h2>
+
+
+                            <!-- POST META -->
+
+                            <ul class="post-meta">
+
+
+                                <!-- DATE -->
+
+                                <li>
+
+                                    <i class="fa fa-calendar"></i>
+
+                                    {{ post.date_uploaded|date:"D, d-M-Y" }}
+
+                                </li>
+
+
+                                <!-- AUTHOR -->
+
+                                <li>
+
+                                    <i class="fa fa-user"></i>
+
+                                    <a href="{% url 'about' %}">
+
+                                        Prof. Wilfred I. Okonkwo
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- LABEL -->
+
+                                {% if post.label %}
+
+                                    <li>
+
+                                        <i class="fa fa-bookmark"></i>
+
+                                        <a href="{% url 'blog_detail' post.pk %}">
+
+                                            {{ post.label }}
+
+                                        </a>
+
+                                    </li>
+
+                                {% endif %}
+
+
+                                <!-- COMMENTS -->
+
+                                <li>
+
+                                    <i class="fa fa-comments"></i>
+
+                                    <a href="{% url 'blog_detail' post.pk %}#comments">
+
+                                        {{ post.comments.count }} Comments
+
+                                    </a>
+
+                                </li>
+
+
+                            </ul>
+
+
+                            <!-- POST ABSTRACT -->
+
+                            {% if post.abstract %}
+
+                                <p class="post-content">
+
+                                    {{ post.abstract|truncatewords:25 }}
+
+                                </p>
+
+                            {% else %}
+
+                                <p class="post-content">
+
+                                    Click Read More to view this blog post.
+
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- READ MORE -->
+
+                            <a
+                                href="{% url 'blog_detail' post.pk %}"
+                                class="btn btn-primary readmore"
+                            >
+
+                                Read More
+
+                            </a>
+
+
+                        </div>
+
+
+                    </article>
+
+
+                {% endfor %}
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- =================================================
+                 NO BLOG POSTS
+            ================================================== -->
+
+            <div class="blog-empty">
+
+                <h3>
+                    No blog posts available.
+                </h3>
+
+                <p>
+                    No blog posts available at this time. Please check back later.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+        <!-- =================================================
+             PAGINATION
+        ================================================== -->
+
+        {% if page_obj and page_obj.paginator.num_pages > 1 %}
+
+            <div class="blog-pagination">
+
+                <ul class="pagination">
+
+
+                    {% if page_obj.has_previous %}
+
+                        <li>
+
+                            <a href="?page={{ page_obj.previous_page_number }}">
+
+                                &lt;
+
+                            </a>
+
+                        </li>
+
+                    {% endif %}
+
+
+                    {% for number in page_obj.paginator.page_range %}
+
+                        {% if page_obj.number == number %}
+
+                            <li class="active">
+
+                                <a href="#">
+
+                                    {{ number }}
+
+                                </a>
+
+                            </li>
+
+                        {% else %}
+
+                            <li>
+
+                                <a href="?page={{ number }}">
+
+                                    {{ number }}
+
+                                </a>
+
+                            </li>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                    {% if page_obj.has_next %}
+
+                        <li>
+
+                            <a href="?page={{ page_obj.next_page_number }}">
+
+                                &gt;
+
+                            </a>
+
+                        </li>
+
+                    {% endif %}
+
+
+                </ul>
+
+            </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+{% endblock %}

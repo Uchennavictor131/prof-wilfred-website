@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Publications | Prof. Wilfred I. Okonkwo Research Lab
+{% endblock %}
+
+{% block content %}
+
+<!-- PUBLICATIONS PAGE -->
+
+<section class="publications-page">
+
+    <!-- PAGE HEADER -->
+
+    <div class="publications-header">
+
+        <div class="publications-header-container">
+
+            <p class="publications-eyebrow">
+                ACADEMIC OUTPUT
+            </p>
+
+            <h1>
+                Latest Publications
+            </h1>
+
+            <p>
+                Academic publications and research outputs.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH AREA -->
+
+    <section class="publications-search-section">
+
+        <div class="publications-container">
+
+            <form method="get" class="publication-search">
+
+                <div class="publication-search-input">
+
+                    <span class="search-icon">
+                        🔍
+                    </span>
+
+                    <input
+                        type="search"
+                        name="q"
+                        value="{{ query }}"
+                        placeholder="Search publications by title, author or journal..."
+                        aria-label="Search publications"
+                    >
+
+                </div>
+
+
+                <select
+                    name="year"
+                    aria-label="Filter publications by year"
+                >
+
+                    <option value="">
+                        All years
+                    </option>
+
+                    {% for year in years %}
+
+                    <option
+                        value="{{ year }}"
+                        {% if selected_year == year|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ year }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="publication-search-button"
+                >
+                    Search
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH RESULT INFORMATION -->
+
+    {% if query or selected_year %}
+
+    <div class="publication-search-result">
+
+        <div class="publications-container">
+
+            {% if query %}
+
+            <span>
+                Search results for:
+                <strong>"{{ query }}"</strong>
+            </span>
+
+            {% endif %}
+
+
+            {% if selected_year %}
+
+            <span>
+                Year:
+                <strong>{{ selected_year }}</strong>
+            </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- PUBLICATION CARDS -->
+
+    <section class="publications-section">
+
+        <div class="publications-container">
+
+            <div class="publication-grid">
+
+                {% for publication in publications %}
+
+                <article class="publication-card">
+
+
+                    <!-- PUBLICATION IMAGE -->
+
+                    <div class="publication-image">
+
+                        {% if publication.image %}
+
+                            <img
+                                src="{{ publication.image.url }}"
+                                alt="{{ publication.title }}"
+                            >
+
+                        {% else %}
+
+                            <!-- DEFAULT GREEN PLACEHOLDER -->
+
+                            <div class="publication-placeholder">
+
+                                <div class="placeholder-icon">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- PUBLICATION CONTENT -->
+
+                    <div class="publication-content">
+
+
+                        <!-- TITLE -->
+
+                        <h2 class="publication-card-title">
+                            {{ publication.title }}
+                        </h2>
+
+
+                        <!-- ABSTRACT -->
+
+                        {% if publication.abstract %}
+
+                        <p class="publication-abstract">
+                            {{ publication.abstract|truncatechars:500 }}
+                        </p>
+
+                        {% else %}
+
+                        <p class="publication-abstract">
+                            No abstract has been provided for this
+                            publication.
+                        </p>
+
+                        {% endif %}
+
+
+                        <!-- READ FULL TEXT -->
+
+                        {% if publication.pdf_file %}
+
+                        <a
+                            href="{% url 'publication_download' publication.pk %}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="read-full-text"
+                        >
+                            Read Full Text
+                        </a>
+
+                        {% else %}
+
+                        <span class="read-full-text unavailable">
+                            Full Text Not Available
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- PUBLICATION LINKS -->
+
+                    <div class="publication-links">
+
+
+                        {% if publication.journal_url %}
+
+                        <a
+                            href="{{ publication.journal_url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="journal-link"
+                        >
+                            JOURNAL LINK
+                        </a>
+
+                        {% endif %}
+
+
+                        {% if publication.researchgate_url %}
+
+                        <a
+                            href="{{ publication.researchgate_url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="researchgate-link"
+                        >
+                            RESEARCH GATE LINK
+                        </a>
+
+                        {% endif %}
+
+
+                        {% if publication.google_scholar_url %}
+
+                        <a
+                            href="{{ publication.google_scholar_url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="scholar-link"
+                        >
+                            GOOGLE SCHOLAR LINK
+                        </a>
+
+                        {% endif %}
+
+
+                        {% if publication.doi %}
+
+                        <a
+                            href="{{ publication.doi }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="doi-link"
+                        >
+                            DOI →
+                        </a>
+
+                        {% endif %}
+
+
+                        {% if publication.publication_url %}
+
+                        <a
+                            href="{{ publication.publication_url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="publication-url-link"
+                        >
+                            Publication →
+                        </a>
+
+                        {% endif %}
+
+
+                    </div>
+
+                </article>
+
+                {% empty %}
+
+
+                <!-- EMPTY STATE -->
+
+                <div class="publication-empty">
+
+                    <h2>
+                        No publications found
+                    </h2>
+
+                    <p>
+                        No publications available at this time please
+                        check back later.
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- VIEW ALL BUTTON -->
+
+            {% if publications %}
+
+            <div class="publication-view-all">
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+</section>
+
+{% endblock %}

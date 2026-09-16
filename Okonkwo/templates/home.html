@@ -1,0 +1,562 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Prof. Wilfred I. Okonkwo
+{% endblock %}
+
+{% block content %}
+
+
+<!-- 
+     PROFILE / HERO SECTION
+ -->
+
+<section class="profile-section">
+
+    <div class="profile-container">
+
+        <!-- PROFILE PHOTO -->
+
+        <div class="profile-photo">
+
+            {% if profile and profile.photo %}
+
+                <img
+                    src="{{ profile.photo.url }}"
+                    alt="{{ profile.name }}"
+                >
+
+            {% else %}
+
+                <!-- DEFAULT PROFILE PLACEHOLDER -->
+
+                <div class="default-profile-placeholder">
+
+                    <div class="default-profile-icon">
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- PROFILE INFORMATION -->
+
+        <div class="profile-info">
+
+            {% if profile %}
+
+                <h1>
+                    {{ profile.name }}
+                </h1>
+
+
+                {% if profile.title %}
+
+                    <p>
+                        {{ profile.title }}
+                    </p>
+
+                {% endif %}
+
+
+                {% if profile.department %}
+
+                    <p>
+                        {{ profile.department }}
+                    </p>
+
+                {% endif %}
+
+
+                {% if profile.institution %}
+
+                    <p>
+                        {{ profile.institution }}
+                    </p>
+
+                {% endif %}
+
+
+                {% if profile.email %}
+
+                    <p>
+                        Email:
+
+                        <a href="mailto:{{ profile.email }}">
+                            {{ profile.email }}
+                        </a>
+                    </p>
+
+                {% endif %}
+
+
+                <!-- FULL BIO BUTTON -->
+
+                <a
+                    href="{% url 'about' %}"
+                    class="btn-pill"
+                >
+                    Full Bio
+                </a>
+
+
+                <!-- SOCIAL PROFILE ICONS -->
+
+                <div class="profile-social-icons">
+
+
+                    <!-- GOOGLE SCHOLAR -->
+
+                    {% if profile.google_scholar %}
+
+                        <a
+                            href="{{ profile.google_scholar }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Google Scholar"
+                            title="Google Scholar"
+                        >
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
+                        </a>
+
+                    {% endif %}
+
+
+                    <!-- RESEARCHGATE -->
+
+                    {% if profile.ResearchGate %}
+
+                        <a
+                            href="{{ profile.ResearchGate }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="ResearchGate"
+                            title="ResearchGate"
+                        >
+
+                            <i class="fa-brands fa-researchgate"></i>
+
+                        </a>
+
+                    {% endif %}
+
+
+                    <!-- LINKEDIN -->
+
+                    {% if profile.linkedin %}
+
+                        <a
+                            href="{{ profile.linkedin }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="LinkedIn"
+                            title="LinkedIn"
+                        >
+
+                            <i class="fa-brands fa-linkedin"></i>
+
+                        </a>
+
+                    {% endif %}
+
+
+                    <!-- ORCID -->
+
+                    {% if profile.ORCID %}
+
+                        <a
+                            href="{{ profile.ORCID }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="ORCID"
+                            title="ORCID"
+                        >
+
+                            <i class="fa-brands fa-orcid"></i>
+
+                        </a>
+
+                    {% endif %}
+
+
+                </div>
+
+            {% else %}
+
+
+                <!-- NO PROFILE -->
+
+                <h1>
+                    Prof. Wilfred I. Okonkwo Research Lab
+                </h1>
+
+                <p>
+                    Welcome to the research laboratory.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+<!-- 
+     FEATURED PUBLICATIONS
+ -->
+
+<section class="content-section featured-section">
+
+    <div class="section-container">
+
+        <h2>
+            Featured Publications
+        </h2>
+
+
+        <div class="post-grid">
+
+
+            {% for post in featured_posts %}
+
+                <article class="post-card">
+
+
+                    <!-- 
+                         FEATURED PUBLICATION IMAGE
+                     -->
+
+                    <div class="publication-image">
+
+                        {% if post.image %}
+
+                            <img
+                                src="{{ post.image.url }}"
+                                alt="{{ post.title }}"
+                            >
+
+                        {% else %}
+
+                            <!-- DEFAULT PUBLICATION PLACEHOLDER -->
+
+                            <div class="publication-placeholder">
+
+                                <div class="placeholder-icon">
+
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- 
+                         FEATURED PUBLICATION INFORMATION
+                     -->
+
+                    <div class="post-card-content">
+
+                        <h3>
+                            {{ post.title }}
+                        </h3>
+
+
+                        {% if post.authors %}
+
+                            <p class="authors">
+                                {{ post.authors }}
+                            </p>
+
+                        {% endif %}
+
+
+                        {% if post.journal %}
+
+                            <p class="journal">
+                                {{ post.journal }}
+                            </p>
+
+                        {% endif %}
+
+
+                        {% if post.year %}
+
+                            <p class="post-date">
+                                {{ post.year }}
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+
+            {% empty %}
+
+                <p>
+                    No featured publications available.
+                </p>
+
+            {% endfor %}
+
+
+        </div>
+
+
+        <!-- MORE FEATURED PUBLICATIONS BUTTON -->
+
+        <a
+            href="{% url 'publications' %}"
+            class="btn-pill"
+        >
+            More featured 
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- 
+     BLOG
+ -->
+
+<section class="content-section blog-section">
+
+    <div class="section-container">
+
+        <h2>
+            Blog
+        </h2>
+
+
+        <div class="post-grid">
+
+
+            {% for post in recent_blog_posts %}
+
+                <article class="post-card">
+
+
+                    <!-- BLOG HEADER IMAGE -->
+
+                    {% if post.header_picture %}
+
+                        <img
+                            src="{{ post.header_picture.url }}"
+                            alt="{{ post.post_title }}"
+                        >
+
+                    {% endif %}
+
+
+                    <!-- BLOG INFORMATION -->
+
+                    <div class="post-card-content">
+
+
+                        <!-- BLOG LABEL -->
+
+                        {% if post.label %}
+
+                            <p class="post-label">
+                                {{ post.label }}
+                            </p>
+
+                        {% endif %}
+
+
+                        <!-- BLOG TITLE -->
+
+                        <h3>
+                            {{ post.post_title }}
+                        </h3>
+
+
+                        <!-- BLOG DATE -->
+
+                        {% if post.date_uploaded %}
+
+                            <p class="post-date">
+                                {{ post.date_uploaded|date:"M d, Y" }}
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+
+            {% empty %}
+
+                <p>
+                    No blog posts available.
+                </p>
+
+            {% endfor %}
+
+
+        </div>
+
+
+        <!-- MORE BLOG POSTS BUTTON -->
+
+        <a
+            href="{% url 'blog' %}"
+            class="btn-pill"
+        >
+            More Blog Posts
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- 
+     LATEST PAPERS
+ -->
+
+<section class="content-section papers-section">
+
+    <div class="section-container">
+
+        <h2>
+            Latest Papers
+        </h2>
+
+
+        <div class="post-grid">
+
+
+            {% for paper in latest_papers %}
+
+                <article class="post-card">
+
+
+                    <!-- 
+                         PUBLICATION IMAGE
+                     -->
+
+                    <div class="publication-image">
+
+                        {% if paper.image %}
+
+                            <!-- UPLOADED PUBLICATION IMAGE -->
+
+                            <img
+                                src="{{ paper.image.url }}"
+                                alt="{{ paper.title }}"
+                            >
+
+                        {% else %}
+
+                            <!-- DEFAULT PUBLICATION PLACEHOLDER -->
+
+                            <div class="publication-placeholder">
+
+                                <div class="placeholder-icon">
+
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- 
+                         PUBLICATION INFORMATION
+                     -->
+
+                    <div class="post-card-content">
+
+                        <h3>
+                            {{ paper.title }}
+                        </h3>
+
+
+                        {% if paper.journal %}
+
+                            <p class="journal">
+                                {{ paper.journal }}
+                            </p>
+
+                        {% endif %}
+
+
+                        {% if paper.authors %}
+
+                            <p class="authors">
+                                {{ paper.authors }}
+                            </p>
+
+                        {% endif %}
+
+
+                        {% if paper.year %}
+
+                            <p class="post-date">
+                                {{ paper.year }}
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+
+            {% empty %}
+
+                <p>
+                    No publications available.
+                </p>
+
+            {% endfor %}
+
+
+        </div>
+
+
+        <!-- MORE PAPERS BUTTON -->
+
+        <a
+            href="{% url 'publications' %}"
+            class="btn-pill"
+        >
+            More papers
+        </a>
+
+    </div>
+
+</section>
+
+
+
+
+
+{% endblock %}

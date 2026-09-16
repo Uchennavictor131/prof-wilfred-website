@@ -8,9 +8,9 @@ from .models import (
 
 def admin_dashboard(request):
 
-    # =========================================================
+
     # PUBLICATIONS
-    # =========================================================
+
 
     publications = Publication.objects.all()
 
@@ -19,25 +19,25 @@ def admin_dashboard(request):
     ).first()
 
 
-    # =========================================================
+
     # TOTAL PUBLICATION DOWNLOADS
-    # =========================================================
+
 
     total_downloads = publications.aggregate(
         total=Sum("download_count")
     )["total"] or 0
 
 
-    # =========================================================
+
     # TOTAL BLOG POSTS
-    # =========================================================
+
 
     total_blog_posts = BlogPost.objects.count()
 
 
-    # =========================================================
+
     # DASHBOARD DATA
-    # =========================================================
+
 
     return {
 

@@ -8,17 +8,235 @@ from docx import Document
 from pptx import Presentation
 
 
-
-# OLD PUBLICATION VALIDATOR
+# PUBLICATION FILE VALIDATOR
 
 
 def validate_publication_file(value):
     """
-    Kept for compatibility with existing Django migrations.
+    Publication files must contain actual text.
 
-    Publication files are no longer restricted by this validator.
+    Accepted:
+    - PDF documents containing text
+    - DOCX Word documents containing text
+    - PPTX PowerPoint presentations containing text
+
+    Documents may also contain images.
+
+    Rejected:
+    - Image-only files
+    - Documents containing only images and no text
     """
-    return
+
+    file_name = value.name.lower()
+    extension = os.path.splitext(file_name)[1]
+
+    allowed_image_extensions = {
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".gif",
+        ".webp",
+        ".bmp",
+        ".tiff",
+        ".tif",
+    }
+
+
+    
+    # NORMAL IMAGE FILES
+    
+
+    if extension in allowed_image_extensions:
+
+        raise ValidationError(
+            "Image files cannot be uploaded as publications. "
+            "Please upload a document containing text."
+        )
+
+
+    
+    # PDF
+    
+
+    if extension == ".pdf":
+
+        try:
+
+            value.seek(0)
+
+            pdf_data = value.read()
+
+            value.seek(0)
+
+            document = pymupdf.open(
+                stream=pdf_data,
+                filetype="pdf"
+            )
+
+            contains_text = False
+
+            for page in document:
+
+                text = page.get_text("text")
+
+                if text and text.strip():
+
+                    contains_text = True
+
+                    break
+
+            document.close()
+
+            if not contains_text:
+
+                raise ValidationError(
+                    "This PDF cannot be uploaded because it "
+                    "does not contain readable text. "
+                    "Image-only or scanned-image PDFs are not allowed."
+                )
+
+            return
+
+        except ValidationError:
+            raise
+
+        except Exception:
+
+            raise ValidationError(
+                "The PDF could not be checked. "
+                "Please upload a valid PDF containing text."
+            )
+
+
+    
+    # MICROSOFT WORD DOCX
+    
+
+    if extension == ".docx":
+
+        try:
+
+            value.seek(0)
+
+            document = Document(value)
+
+            value.seek(0)
+
+            text_parts = []
+
+
+            # Normal paragraphs
+
+            for paragraph in document.paragraphs:
+
+                if paragraph.text and paragraph.text.strip():
+
+                    text_parts.append(
+                        paragraph.text.strip()
+                    )
+
+
+            # Tables
+
+            for table in document.tables:
+
+                for row in table.rows:
+
+                    for cell in row.cells:
+
+                        if cell.text and cell.text.strip():
+
+                            text_parts.append(
+                                cell.text.strip()
+                            )
+
+
+            if not text_parts:
+
+                raise ValidationError(
+                    "This Word document cannot be uploaded because "
+                    "it does not contain readable text. "
+                    "Image-only documents are not allowed."
+                )
+
+            return
+
+        except ValidationError:
+            raise
+
+        except Exception:
+
+            raise ValidationError(
+                "The Word document could not be checked. "
+                "Please upload a valid Word document containing text."
+            )
+
+
+    
+    # MICROSOFT POWERPOINT PPTX
+    
+
+    if extension == ".pptx":
+
+        try:
+
+            value.seek(0)
+
+            presentation = Presentation(value)
+
+            value.seek(0)
+
+            contains_text = False
+
+
+            for slide in presentation.slides:
+
+                for shape in slide.shapes:
+
+                    if hasattr(shape, "text"):
+
+                        if shape.text and shape.text.strip():
+
+                            contains_text = True
+
+                            break
+
+                if contains_text:
+
+                    break
+
+
+            if not contains_text:
+
+                raise ValidationError(
+                    "This PowerPoint presentation cannot be uploaded "
+                    "because it does not contain readable text. "
+                    "Image-only presentations are not allowed."
+                )
+
+            return
+
+        except ValidationError:
+            raise
+
+        except Exception:
+
+            raise ValidationError(
+                "The PowerPoint presentation could not be checked. "
+                "Please upload a valid PowerPoint presentation "
+                "containing text."
+            )
+
+
+    
+    # EVERYTHING ELSE
+    
+
+    raise ValidationError(
+        "This file type cannot be checked as a publication. "
+        "Please upload a PDF, Microsoft Word document, "
+        "or PowerPoint presentation containing text."
+    )
 
 
 
@@ -51,16 +269,16 @@ def validate_blog_file(value):
         ".tif",
     }
 
-    # =====================================================
+    ''
     # NORMAL IMAGE
-    # =====================================================
+    ''
 
     if extension in allowed_image_extensions:
         return
 
-    # =====================================================
+    ''
     # PDF
-    # =====================================================
+    ''
 
     if extension == ".pdf":
 
@@ -109,9 +327,9 @@ def validate_blog_file(value):
                 "Please upload a valid PDF containing an image."
             )
 
-    # =====================================================
+    ''
     # DOCX
-    # =====================================================
+    ''
 
     if extension == ".docx":
 
@@ -152,9 +370,9 @@ def validate_blog_file(value):
                 "Please upload a valid DOCX document containing an image."
             )
 
-    # =====================================================
+    ''
     # PPTX
-    # =====================================================
+    ''
 
     if extension == ".pptx":
 
@@ -202,9 +420,9 @@ def validate_blog_file(value):
                 "Please upload a valid PPTX presentation containing an image."
             )
 
-    # =====================================================
+    ''
     # EVERYTHING ELSE
-    # =====================================================
+    ''
 
     raise ValidationError(
         "Only image files, PDF documents, Word documents, "
@@ -219,7 +437,6 @@ def validate_blog_file(value):
 class TeamMember(models.Model):
 
     # These are suggested categories.
-    # The admin will allow users to type a different category too.
 
     CATEGORY_CHOICES = [
         ("director", "Director"),
@@ -243,8 +460,7 @@ class TeamMember(models.Model):
         max_length=200
     )
 
-    # NOT a fixed Django choices field.
-    # Users can select a suggested category or type their own.
+    #typed catogory or suggestion
 
     category = models.CharField(
         max_length=100,
@@ -330,7 +546,10 @@ class Publication(models.Model):
         upload_to="publications/pdfs/",
         blank=True,
         null=True,
-        verbose_name="Full Text File"
+        verbose_name="Full Text File",
+        validators=[
+            validate_publication_file
+        ]
     )
 
     download_count = models.PositiveIntegerField(
@@ -464,15 +683,7 @@ class BlogPost(models.Model):
         verbose_name="Abstract"
     )
 
-    # =====================================================
     # ONE FILE FIELD
-    #
-    # Allows:
-    # - Images
-    # - PDF containing an image
-    # - DOCX containing an image
-    # - PPTX containing an image
-    # =====================================================
 
     header_picture = models.FileField(
         upload_to="blog/",

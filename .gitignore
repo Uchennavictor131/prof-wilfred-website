@@ -57,4 +57,4 @@ htmlcov/
 *.swp
 *.swo
 *~
-
+.env

@@ -129,17 +129,3 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # EMAIL CONFIGURATION
 
-MAILERS = {
-    "default": {
-        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
-        "OPTIONS": {
-            "host": "smtp.gmail.com",
-            "port": 465,
-            "username": "victoruchenna471@gmail.com",
-            "password": "Kwoi xxye flth xpcp",
-            "use_ssl": True,
-        },
-    },
-}
-
-DEFAULT_FROM_EMAIL = "victoruchenna471@gmail.com"

@@ -551,7 +551,7 @@ This message was submitted through the website.
     # RECEIVING EMAIL ADDRESS
    
 
-    to_email = "victoruchenna471@gmail.com"
+    to_email = "Your emailaddress.com"  # Replace with your email address
 
    
     # SEND EMAIL

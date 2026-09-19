@@ -128,4 +128,17 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
 # EMAIL CONFIGURATION
+MAILERS = {
+    "default": {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": "smtp.gmail.com",
+            "port": 465,
+            "username": "Your emailaddress.com",  # Replace with your email address
+            "password": "YOUR EMAIL APP_PASSWORD",  # Replace with your app password
+            "use_ssl": True,
+        },
+    },
+}
 
+DEFAULT_FROM_EMAIL = "Your emailaddress.com"  # Replace with your email address
